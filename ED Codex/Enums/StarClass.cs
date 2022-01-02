@@ -8,19 +8,47 @@ namespace ED_Codex.Enums
 {
     public enum  StarClass
     {
-        O,
+        O = 0,
+
+        O_G,
+
+        O_SG,
 
         B,
 
+        B_G,
+
+        B_SG,
+
         A,
+
+        A_G,
+
+        A_SG,
 
         F,
 
+        F_G,
+
+        F_SG,
+
         G,
 
-        K, 
+        G_G,
+
+        G_SG,
+
+        K,
+
+        K_G,
+
+        K_SG,
 
         M,
+
+        M_G,
+
+        M_SG,
 
         L,
 
@@ -34,13 +62,41 @@ namespace ED_Codex.Enums
 
         C,
 
+        CN,
+
+        CJ,
+
         MS,
 
         S,
 
         W,
 
-        D,
+        WC,
+
+        WN,
+
+        WNC,
+
+        WO,
+
+        DA,
+
+        DAB,
+
+        DAV,
+
+        DAZ,
+
+        DB,
+
+        DBV,
+
+        DBZ,
+
+        DC,
+
+        DCV,
 
         N,
 

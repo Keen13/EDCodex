@@ -9,76 +9,82 @@ namespace ED_Codex.Enums
 {
     public enum GeoFeature
     {
-        [Description("Ammonia Ice Fumarole")]
-        AmmoniaIceFumarole = 300,
-
-        [Description("Ammonia Ice Geyser")]
-        AmmoniaIceGeyser,
-
-        [Description("Iron Magma Lava Spout")]
-        IronMagmaLavaSpout,
-
-        [Description("Methane Ice Fumarole")]
-        MethaneIceFumarole,
-
-        [Description("Methane Ice Geyser")]
-        MethaneIceGeyser,
-
-        [Description("Nitrogen Ice Fumarole")]
-        NitrogenIceFumarole,
-
-        [Description("Nitrogen Ice Geyser")]
-        NitrogenIceGeyser,
-
-        [Description("Carbon Dioxide Fumarole")]
-        CarbonDioxideFumarole,
-
-        [Description("Carbon Dioxide Gas Vent")]
-        CarbonDioxideGasVent,
-
-        [Description("Carbon Dioxide Geyser")]
-        CarbonDioxideGeyser,
-
-        [Description("Carbon Dioxide Ice Fumarole")]
-        CarbonDioxideIceFumarole,
-
-        [Description("Carbon Dioxide Ice Geyser")]
-        CarbonDioxideIceGeyser,
-
-        [Description("Silicate Magma Lava Spout")]
-        SilicateMagmaLavaSpout,
+        // Fumarole
+        [Description("Sulfur Dioxide Fumarole")]
+        SulfurDioxideFumarole,
 
         [Description("Silicate Vapour Fumarole")]
         SilicateVapourFumarole,
 
-        [Description("Silicate Vapour Gas Vent")]
-        SilicateVapourGasVent,
-
-        [Description("Silicate Vapour Ice Fumarole")]
-        SilicateVapourIceFumarole,
-
-        [Description("Sulfur Dioxide Gas Vent")]
-        SulfurDioxideGasVent,
-
-        [Description("Sulfur Dioxide Fumarole")]
-        SulfurDioxideFumarole,
-
-        [Description("Sulfur Dioxide Ice Fumarole")]
-        SulfurDioxideIceFumarole,
-
         [Description("Water Fumarole")]
         WaterFumarole,
 
-        [Description("Water Geyser")]
-        WaterGeyser,
+        [Description("Carbon Dioxide Fumarole")]
+        CarbonDioxideFumarole,
 
-        [Description("Water Gas Vent")]
-        WaterGasVent,
+        // Ice Fumarole
+        [Description("Sulfur Dioxide Ice Fumarole")]
+        SulfurDioxideIceFumarole,
 
         [Description("Water Ice Fumarole")]
         WaterIceFumarole,
 
+        [Description("Carbon Dioxide Ice Fumarole")]
+        CarbonDioxideIceFumarole,
+
+        [Description("Ammonia Ice Fumarole")]
+        AmmoniaIceFumarole,
+
+        [Description("Methane Ice Fumarole")]
+        MethaneIceFumarole,
+        
+        [Description("Nitrogen Ice Fumarole")]
+        NitrogenIceFumarole,
+        
+        [Description("Silicate Vapour Ice Fumarole")]
+        SilicateVapourIceFumarole,
+
+        // Geyser
+        [Description("Water Geyser")]
+        WaterGeyser,
+
+        [Description("Carbon Dioxide Geyser")]
+        CarbonDioxideGeyser,
+
+        // Ice Geyser
         [Description("Water Ice Geyser")]
         WaterIceGeyser,
+
+        [Description("Carbon Dioxide Ice Geyser")]
+        CarbonDioxideIceGeyser,
+
+        [Description("Ammonia Ice Geyser")]
+        AmmoniaIceGeyser,
+
+        [Description("Methane Ice Geyser")]
+        MethaneIceGeyser,
+
+        [Description("Nitrogen Ice Geyser")]
+        NitrogenIceGeyser,
+
+        // Lava Spout
+        [Description("Silicate Magma Lava Spout")]
+        SilicateMagmaLavaSpout,
+
+        [Description("Iron Magma Lava Spout")]
+        IronMagmaLavaSpout,
+
+        // Gas Vent
+        [Description("Sulfur Dioxide Gas Vent")]
+        SulfurDioxideGasVent,
+
+        [Description("Water Gas Vent")]
+        WaterGasVent,
+
+        [Description("Carbon Dioxide Gas Vent")]
+        CarbonDioxideGasVent,
+
+        [Description("Silicate Vapour Gas Vent")]
+        SilicateVapourGasVent,
     }
 }

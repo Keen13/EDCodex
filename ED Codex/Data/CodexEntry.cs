@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using ED_Codex.Enums;
 
-namespace ED_Codex
+namespace ED_Codex.Data
 {
     public class CodexEntry<T> where T : Enum
     {
@@ -29,16 +29,21 @@ namespace ED_Codex
 
         public T Feature { get; set; }
 
-        public List<StarClass> FoundAtStars { get; set;  } = new List<StarClass>();
-
-        public List<PlanetType> FoundOnPlanets { get; set;  } = new List<PlanetType>();
-        
-        public List<Volcanism> FoundWithVolcanism { get; set; } = new List<Volcanism>();
+        public Requirements Requirements { get; set; } 
 
         public Dictionary<GalacticRegion, CodexEntryStatus> StatusByGalacticRegion { get; } = new Dictionary<GalacticRegion, CodexEntryStatus>();
-        
-        private void InitializeStatusByGalacticRegion()
 
+        public void MarkAsFound(GalacticRegion galacticRegion)
+        {
+            StatusByGalacticRegion[galacticRegion] = CodexEntryStatus.Found;
+        }
+
+        public void MarkAsNotExists(GalacticRegion galacticRegion)
+        {
+            StatusByGalacticRegion[galacticRegion] = CodexEntryStatus.NotExists;
+        }
+
+        private void InitializeStatusByGalacticRegion()
         {
             foreach (GalacticRegion galacticRegion in Enum.GetValues(typeof(GalacticRegion)))
             {

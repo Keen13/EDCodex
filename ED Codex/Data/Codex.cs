@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using ED_Codex.Enums;
 
-namespace ED_Codex
+namespace ED_Codex.Data
 {
     public class Codex
     {
