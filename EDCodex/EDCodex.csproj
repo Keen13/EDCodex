@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>ED_Codex</RootNamespace>
-    <OutputPath>c:\Work\ ED</OutputPath>
+    <!--<OutputPath>c:\Work\ ED</OutputPath>-->
   </PropertyGroup>
 
 </Project>
