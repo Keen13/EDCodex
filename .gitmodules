@@ -1,0 +1,3 @@
+[submodule "SubmoduleExample"]
+	path = SubmoduleExample
+	url = https://github.com/Roganik/Quartznet-MisfireOrderExample.git
