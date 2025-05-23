@@ -5,66 +5,65 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+// NB! Pre-Odyssey features only
+public enum BioFeature
 {
-    // NB! Pre-Odyssey features only
-    public enum BioFeature
-    {
-        // Thargoid Barnacles
-        CommonThargoidBarnacle,
-        
-        LargeThargoidBarnacle,
-        
-        ThargoidBarnacleBarbs,
+    // Thargoid Barnacles
+    CommonThargoidBarnacle,
+    
+    LargeThargoidBarnacle,
+    
+    ThargoidBarnacleBarbs,
 
-        // Brain Trees
-        RoseumBrainTree,
+    // Brain Trees
+    RoseumBrainTree,
 
-        GypseeumBrainTree,
+    GypseeumBrainTree,
 
-        OstrinumBrainTree,
+    OstrinumBrainTree,
 
-        VirideBrainTree,
+    VirideBrainTree,
 
-        LividumBrainTree,
+    LividumBrainTree,
 
-        AureumBrainTree,
+    AureumBrainTree,
 
-        LindigoticumBrainTree,
+    LindigoticumBrainTree,
 
-        // Bark Mounds
-        BarkMound,
-        
-        // Anemones
-        LuteolumAnemone,
+    // Bark Mounds
+    BarkMound,
+    
+    // Anemones
+    LuteolumAnemone,
 
-        CroceumAnemone,
+    CroceumAnemone,
 
-        PunicelumAnemone,
+    PunicelumAnemone,
 
-        RoseumAnemone,
+    RoseumAnemone,
 
-        BlatteumBioluminescentAnemone,
+    BlatteumBioluminescentAnemone,
 
-        RubeumBioluminescentAnemone,
+    RubeumBioluminescentAnemone,
 
-        PrasinumBioluminescentAnemone,
+    PrasinumBioluminescentAnemone,
 
-        RoseumBioluminescentAnemone,
+    RoseumBioluminescentAnemone,
 
-        //Sinuous Tubers
-        RoseumSinuousTubers,
+    //Sinuous Tubers
+    RoseumSinuousTubers,
 
-        BlatteumSinuousTubers,
-        
-        PrasinumSinuousTubers,
+    BlatteumSinuousTubers,
+    
+    PrasinumSinuousTubers,
 
-        CaeruleumSinuousTubers,
+    CaeruleumSinuousTubers,
 
-        ViolaceumSinuousTubers,
+    ViolaceumSinuousTubers,
 
-        VirideSinuousTubers,
-        
-        LindigoticumSinuousTubers
-    }
+    VirideSinuousTubers,
+    
+    LindigoticumSinuousTubers
 }

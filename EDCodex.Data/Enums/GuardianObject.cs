@@ -4,26 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+public enum GuardianObject
 {
-    public enum GuardianObject
-    {
-        // Guardian Codex
-        GuardianCodex,
-        
-        // Guardian Data Terminal
-        GuardianDataTerminal,
-        
-        // Guardian Pylon
-        GuardianPylon,
-        
-        // Guardian Relic Tower
-        GuardianRelicTower,
-        
-        // Guardian Sentinel
-        GuardianSentinel,
-        
-        // Guardian Beacon
-        GuardianBeacon,
-    }
+    // Guardian Codex
+    GuardianCodex,
+    
+    // Guardian Data Terminal
+    GuardianDataTerminal,
+    
+    // Guardian Pylon
+    GuardianPylon,
+    
+    // Guardian Relic Tower
+    GuardianRelicTower,
+    
+    // Guardian Sentinel
+    GuardianSentinel,
+    
+    // Guardian Beacon
+    GuardianBeacon,
 }

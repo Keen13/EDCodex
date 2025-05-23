@@ -4,34 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+public enum GasGiantPlanetType
 {
-    public enum GasGiantPlanetType
-    {
-        WG,
+    WG,
 
-        GWL,
+    GWL,
 
-        GWL_G,
+    GWL_G,
 
-        GAL,
+    GAL,
 
-        G_I,
+    G_I,
 
-        G_IG,
+    G_IG,
 
-        G_II,
+    G_II,
 
-        G_III,
+    G_III,
 
-        G_IIIG,
+    G_IIIG,
 
-        G_IV,
+    G_IV,
 
-        G_V,
+    G_V,
 
-        HRG,
+    HRG,
 
-        HG,
-    }
+    HG,
 }

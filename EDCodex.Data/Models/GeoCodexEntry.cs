@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Models
-{
-    public class GeoCodexEntry : CodexEntry<GeoFeature>
-    {
-        public GeoCodexEntry() : base(CodexEntryType.Geo)
-        {
-        }
+namespace EDCodex.Data.Models;
 
-        public GeoCodexEntry(GeoFeature feature) : base(CodexEntryType.Geo, feature)
-        {
-        }
+public class GeoCodexEntry : CodexEntry<GeoFeature>
+{
+    public GeoCodexEntry() : base(CodexEntryType.Geo)
+    {
+    }
+
+    public GeoCodexEntry(GeoFeature feature) : base(CodexEntryType.Geo, feature)
+    {
     }
 }

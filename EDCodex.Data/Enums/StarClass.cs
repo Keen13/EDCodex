@@ -4,114 +4,113 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+public enum  StarClass
 {
-    public enum  StarClass
-    {
-        O,
+    O,
 
-        O_G,
+    O_G,
 
-        O_SG,
+    O_SG,
 
-        B,
+    B,
 
-        B_G,
+    B_G,
 
-        B_SG,
+    B_SG,
 
-        A,
+    A,
 
-        A_G,
+    A_G,
 
-        A_SG,
+    A_SG,
 
-        F,
+    F,
 
-        F_G,
+    F_G,
 
-        F_SG,
+    F_SG,
 
-        G,
+    G,
 
-        G_G,
+    G_G,
 
-        G_SG,
+    G_SG,
 
-        K,
+    K,
 
-        K_G,
+    K_G,
 
-        K_SG,
+    K_SG,
 
-        M,
+    M,
 
-        M_G,
+    M_G,
 
-        M_SG,
+    M_SG,
 
-        L,
+    L,
 
-        T,
+    T,
 
-        Y,
+    Y,
 
-        TTS,
+    TTS,
 
-        AeBe,
+    AeBe,
 
-        C,
+    C,
 
-        C_G,
-        
-        C_SG,
-        
-        C_HG,
+    C_G,
+    
+    C_SG,
+    
+    C_HG,
 
-        CN_G,
+    CN_G,
 
-        CJ_G,
+    CJ_G,
 
-        MS_G,
+    MS_G,
 
-        S,
+    S,
 
-        S_G,
+    S_G,
 
-        W,
+    W,
 
-        WC,
+    WC,
 
-        WN,
+    WN,
 
-        WNC,
+    WNC,
 
-        WO,
+    WO,
 
-        D,
+    D,
 
-        DA,
+    DA,
 
-        DAB,
+    DAB,
 
-        DAV,
+    DAV,
 
-        DAZ,
+    DAZ,
 
-        DB,
+    DB,
 
-        DBV,
+    DBV,
 
-        DBZ,
+    DBZ,
 
-        DC,
+    DC,
 
-        DCV,
+    DCV,
 
-        DQ,
+    DQ,
 
-        N,
+    N,
 
-        H,
-    }
+    H,
 }

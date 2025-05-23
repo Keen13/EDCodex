@@ -5,61 +5,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+public enum SpaceBioFeature
 {
-    public enum SpaceBioFeature
-    {
-        // Solid Mineral Spheres
-        SolidMineralSpheres,
+    // Solid Mineral Spheres
+    SolidMineralSpheres,
 
-        // Lattice Mineral Spheres
-        LatticeMineralSpheres,
+    // Lattice Mineral Spheres
+    LatticeMineralSpheres,
 
-        // Metallic Crystals
-        PrasinumMetallicCrystals,
+    // Metallic Crystals
+    PrasinumMetallicCrystals,
 
-        PurpureumMetallicCrystals,
+    PurpureumMetallicCrystals,
 
-        RubeumMetallicCrystals,
+    RubeumMetallicCrystals,
 
-        FlavumMetallicCrystals,
+    FlavumMetallicCrystals,
 
-        // Collared Pods
-        AlbidumCollaredPod,
+    // Collared Pods
+    AlbidumCollaredPod,
 
-        LividumCollaredPod,
+    LividumCollaredPod,
 
-        BlatteumCollaredPod,
+    BlatteumCollaredPod,
 
-        RubicundumCollaredPod,
+    RubicundumCollaredPod,
 
-        // Octahedral Pods
-        NiveumOctahedralPod,
+    // Octahedral Pods
+    NiveumOctahedralPod,
 
-        CaeruleumOctahedralPod,
+    CaeruleumOctahedralPod,
 
-        VirideOctahedralPod,
+    VirideOctahedralPod,
 
-        BlatteumOctahedralPod,
+    BlatteumOctahedralPod,
 
-        RubeumOctahedralPod,
+    RubeumOctahedralPod,
 
-        // Gourd Molluscs
-        AlbulumGourdMollusc,
+    // Gourd Molluscs
+    AlbulumGourdMollusc,
 
-        CaeruleumGourdMollusc,
+    CaeruleumGourdMollusc,
 
-        VirideGourdMollusc,
+    VirideGourdMollusc,
 
-        PhoeniceumGourdMollusc,
+    PhoeniceumGourdMollusc,
 
-        PurpureumGourdMollusc,
+    PurpureumGourdMollusc,
 
-        RufumGourdMollusc,
+    RufumGourdMollusc,
 
-        CroceumGourdMollusc,
+    CroceumGourdMollusc,
 
-        // Void Hearts
-        ChryseumVoidHeart
-    }
+    // Void Hearts
+    ChryseumVoidHeart
 }

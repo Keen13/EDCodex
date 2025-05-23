@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ED_Codex
+namespace ED_Codex.Menu;
+
+public interface IMenu
 {
-    public interface IMenu
-    {
-        bool ShowAndRun(string autoRunOptionKey = null);
-    }
+    bool ShowAndRun(string autoRunOptionKey = null);
 }

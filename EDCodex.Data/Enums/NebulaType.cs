@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
-{
-    public enum NebulaType
-    {
-        Any,
+namespace EDCodex.Data.Enums;
 
-        Planetary,
-    }
+public enum NebulaType
+{
+    Any,
+
+    Planetary,
 }

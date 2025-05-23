@@ -4,32 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDCodex.Data.Enums
+namespace EDCodex.Data.Enums;
+
+public enum Volcanism
 {
-    public enum Volcanism
-    {
-        AmmoniaMagma, // 0
+    AmmoniaMagma, // 0
 
-        CarbonDioxideGeysers, // 1
+    CarbonDioxideGeysers, // 1
 
-        IronMagma, // 2
+    IronMagma, // 2
 
-        MetallicMagma, // 3
+    MetallicMagma, // 3
 
-        MethaneMagma, // 4
+    MethaneMagma, // 4
 
-        NitrogenMagma, // 5
+    NitrogenMagma, // 5
 
-        RockyMagma, // 6
+    RockyMagma, // 6
 
-        SilicateMagma, // 7
+    SilicateMagma, // 7
 
-        SilicateVapourGeysers, // 8
+    SilicateVapourGeysers, // 8
 
-        WaterGeysers, // 9
+    WaterGeysers, // 9
 
-        WaterMagma, // 10
-        
-        Any = 99,
-    }
+    WaterMagma, // 10
+    
+    Any = 99,
 }
