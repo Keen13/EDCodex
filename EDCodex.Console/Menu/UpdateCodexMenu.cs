@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EDCodex.Data.Models;
+﻿using System.Collections.Generic;
 using EDCodex.Data.Enums;
-using ED_Codex.Load;
 
 namespace ED_Codex.Menu;
 

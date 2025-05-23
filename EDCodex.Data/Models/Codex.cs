@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EDCodex.Data.Enums;
+﻿using EDCodex.Data.Enums;
 
 namespace EDCodex.Data.Models;
 
@@ -15,23 +10,23 @@ public class Codex
     
     public GalacticRegion CurrentRegion { get; set; } = GalacticRegion.InnerOrionSpur;
 
-    public List<StarCodexEntry> Stars { get; set; } = new List<StarCodexEntry>();
+    public List<StarCodexEntry> Stars { get; set; } = [];
 
-    public List<GasGiantPlanetCodexEntry> GasGiantPlanets { get; set; } = new List<GasGiantPlanetCodexEntry>();
+    public List<GasGiantPlanetCodexEntry> GasGiantPlanets { get; set; } = [];
 
-    public List<TerrestrialPlanetCodexEntry> TerrestrialPlanets { get; set; } = new List<TerrestrialPlanetCodexEntry>();
+    public List<TerrestrialPlanetCodexEntry> TerrestrialPlanets { get; set; } = [];
 
-    public List<GeoCodexEntry> GeoFeatures { get; set; } = new List<GeoCodexEntry>();
+    public List<GeoCodexEntry> GeoFeatures { get; set; } = [];
 
-    public List<BioCodexEntry> BioFeatures { get; set; } = new List<BioCodexEntry>();
+    public List<BioCodexEntry> BioFeatures { get; set; } = [];
 
-    public List<SpaceCodexEntry> SpaceFeatures { get; set; } = new List<SpaceCodexEntry>();
+    public List<SpaceCodexEntry> SpaceFeatures { get; set; } = [];
 
-    public List<SpaceBioCodexEntry> SpaceBioFeatures { get; set; } = new List<SpaceBioCodexEntry>();
+    public List<SpaceBioCodexEntry> SpaceBioFeatures { get; set; } = [];
 
-    public List<ThargiodCodexEntry> ThargoidObjects { get; set; } = new List<ThargiodCodexEntry>();
+    public List<ThargiodCodexEntry> ThargoidObjects { get; set; } = [];
     
-    public List<GuardianCodexEntry> GuardianObjects { get; set; } = new List<GuardianCodexEntry>();
+    public List<GuardianCodexEntry> GuardianObjects { get; set; } = [];
     
     public List<CodexEntry<T>> GetCodexEntries<T>()
         where T : Enum

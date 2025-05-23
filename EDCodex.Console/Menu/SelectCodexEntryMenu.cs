@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EDCodex.Data.Models;
 using EDCodex.Data.Enums;
-using ED_Codex.Load;
 using EDCodex.Data;
 
 namespace ED_Codex.Menu;

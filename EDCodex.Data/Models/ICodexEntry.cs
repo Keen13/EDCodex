@@ -1,5 +1,4 @@
 ﻿using EDCodex.Data.Enums;
-using System.Collections.Generic;
 
 namespace EDCodex.Data.Models;
 

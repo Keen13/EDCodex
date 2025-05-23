@@ -1,7 +1,4 @@
 ﻿using EDCodex.Data.Enums;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text;
 
 namespace EDCodex.Data.Models;

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EDCodex.Data.Enums;
+﻿namespace EDCodex.Data.Enums;
 
 // NB! Pre-Odyssey features only
 public enum BioFeature

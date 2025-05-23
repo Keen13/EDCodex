@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ED_Codex.Menu;
 
@@ -19,14 +17,15 @@ public static class EnumHelper
     {
         var stringValues = Enum.GetValues(typeof(T))
             .Cast<object>()
-            .Select(value => $"{(int) value} - {((T) value).GetDescription()};");
+            .Select(value => $"{(int) value} - {((T) value).GetDescription()};")
+            .ToList();
         ShowStringsInColumns(stringValues, numberOfColumns, columnWidth);                
     }
 
     // TODO VS should not be here
-    public static void ShowStringsInColumns(IEnumerable<string> values, int numberOfColumns, int columnWidth)
+    public static void ShowStringsInColumns(List<string> values, int numberOfColumns, int columnWidth)
     {
-        values = RearrangeListForPrintingInColumns(values.ToList(), numberOfColumns); 
+        values = RearrangeListForPrintingInColumns(values, numberOfColumns); 
             
         var valuesInLine = 0;
         foreach (var value in values)

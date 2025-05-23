@@ -61,8 +61,7 @@ public class GasGiantPlanetsData
     // List only existing Gas Giants types for a region. Other will be marked as NotExists by default
     // Use Data18 as template
     public static List<GasGiantPlanetCodexEntry> Data18 =>
-        new List<GasGiantPlanetCodexEntry>
-        {
+        [        
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.WG),
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.GWL),
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.GWL_G),
@@ -76,5 +75,5 @@ public class GasGiantPlanetsData
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.G_V),
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.HRG),
             new GasGiantPlanetCodexEntry(GasGiantPlanetType.HG),
-        };
+        ];
 }
