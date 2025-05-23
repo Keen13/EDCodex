@@ -11,7 +11,7 @@ namespace ED_Codex
 {
     public static class DbAccessor
     {
-        private const string DataFilePath = @"C:\Work\ ED\Codex.data";
+        private const string DataFilePath = @"..\Codex.data";
         private static Codex _codex;
 
         public static Codex Codex
