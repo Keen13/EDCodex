@@ -8,7 +8,7 @@ namespace EDCodex.Panel
     {
         private const string PannelName = "EDCodex";
         private const string Description = "The description of the pannel goes here.";
-        private const string UniqueName = "MaxPanel-GM";
+        private const string UniqueName = "72795097-5f7a-458a-ab28-1d482f8d029c";
         public static EDDDLLIF.EDDCallBacks DLLCallBack;
 
         public CSharpDLLPanelEDDClass()
@@ -41,8 +41,7 @@ namespace EDCodex.Panel
 
         public void EDDDataResult(object requesttag, object usertag, string data)
         {
-            //PanelUserControl uc = usertag as PanelUserControl;
-            //uc.DataResult(data);
+
         }
     }
 }
