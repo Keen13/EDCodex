@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDCodex.Console", "EDCodex.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDCodex.Data", "EDCodex.Data\EDCodex.Data.csproj", "{63E966B3-F816-440A-BB7A-D396C22A67AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDCodex.Panel", "EDCodex.Panel\EDCodex.Panel.csproj", "{99636532-24A3-4F85-AE41-DBBCA96A8198}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{63E966B3-F816-440A-BB7A-D396C22A67AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E966B3-F816-440A-BB7A-D396C22A67AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63E966B3-F816-440A-BB7A-D396C22A67AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99636532-24A3-4F85-AE41-DBBCA96A8198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99636532-24A3-4F85-AE41-DBBCA96A8198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99636532-24A3-4F85-AE41-DBBCA96A8198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99636532-24A3-4F85-AE41-DBBCA96A8198}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
