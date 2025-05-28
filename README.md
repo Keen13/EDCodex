@@ -1,0 +1,1 @@
+This is a small pet project - a tool for [EDDiscovery](https://github.com/EDDiscovery/EDDiscovery/wiki). It's designed primarily for personal use and serves as a practice ground for a junior developer to gain hands-on experience with simple, but real development workflow.
