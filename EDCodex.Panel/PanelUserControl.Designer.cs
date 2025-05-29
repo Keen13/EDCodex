@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.logMsgsTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // logMsgsTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 373);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(880, 224);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.logMsgsTextBox.Location = new System.Drawing.Point(3, 373);
+            this.logMsgsTextBox.Name = "logMsgsTextBox";
+            this.logMsgsTextBox.Size = new System.Drawing.Size(880, 224);
+            this.logMsgsTextBox.TabIndex = 0;
+            this.logMsgsTextBox.Text = "";
             // 
             // PanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.logMsgsTextBox);
             this.Name = "PanelUserControl";
             this.Size = new System.Drawing.Size(886, 600);
             this.ResumeLayout(false);
@@ -52,6 +52,6 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox logMsgsTextBox;
     }
 }
