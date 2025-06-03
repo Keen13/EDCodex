@@ -76,8 +76,5 @@
     <None Include="Resources\CaptainsLog.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>echo Copying DLL to ..\..\..\appdata and c:\users\%25USERNAME%25\appdata\local\eddiscovery\dll
-copy EDCodex.Panel*.dll D:\PortableSoft\EDDiscovery.Portable.18.1.9\Data\DLL</PostBuildEvent>
-  </PropertyGroup>
+  <Import Project="targets\CopyLocalOutput.targets" Condition="Exists('targets\CopyLocalOutput.targets')" />
 </Project>
