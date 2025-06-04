@@ -24,13 +24,13 @@ namespace EDCodex.Panel
 
         public void DataResult(string data)
         {
-            logMsgsTextBox.AppendText($"System Responded:\r\n{data}\r\n");
-            logMsgsTextBox.ScrollToCaret();
+            textBox_logMsgs.AppendText($"System Responded:\r\n{data}\r\n");
+            textBox_logMsgs.ScrollToCaret();
         }
 
         public void Closing()
         {
-            logMsgsTextBox.AppendText($"Close panel {PanelCallBack.IsClosed()}\r\n");            
+            textBox_logMsgs.AppendText($"Close panel {PanelCallBack.IsClosed()}\r\n");            
         }
 
         public void ControlTextVisibleChange(bool on)
@@ -55,9 +55,9 @@ namespace EDCodex.Panel
             DLLCallBack = CSharpDLLPanelEDDClass.DLLCallBack;
             this.PanelCallBack = callbacks;
 
-            logMsgsTextBox.AppendText("New panel initialized.\r\n");
+            textBox_logMsgs.AppendText("New panel initialized.\r\n");
             DLLCallBack.WriteToLogHighlight("Panel DLL Initialised");
-            logMsgsTextBox.AppendText("Welcome to EDCodex custom panel.\r\n");
+            textBox_logMsgs.AppendText("Welcome to EDCodex custom panel.\r\n");
         }
 
         public void LoadLayout()
@@ -98,7 +98,7 @@ namespace EDCodex.Panel
 
         void IEDDPanelExtension.CursorChanged(JournalEntry je)
         {
-            logMsgsTextBox.AppendText($"Cursor changed to {je.name}\r\n");
+            textBox_logMsgs.AppendText($"Cursor changed to {je.name}\r\n");
         }
     }
 }
