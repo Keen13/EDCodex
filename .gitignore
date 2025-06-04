@@ -39,6 +39,7 @@ _ReSharper*/
 #Project files
 [Bb]uild/
 targets/
+/packages
 
 *.pdb
 *.ide
