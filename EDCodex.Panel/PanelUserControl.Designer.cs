@@ -43,11 +43,13 @@
             // 
             // comboBox_currentRegion
             // 
+            this.comboBox_currentRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_currentRegion.FormattingEnabled = true;
             this.comboBox_currentRegion.Location = new System.Drawing.Point(3, 339);
             this.comboBox_currentRegion.Name = "comboBox_currentRegion";
             this.comboBox_currentRegion.Size = new System.Drawing.Size(272, 28);
             this.comboBox_currentRegion.TabIndex = 1;
+            this.comboBox_currentRegion.SelectedIndexChanged += new System.EventHandler(this.comboBox_currentRegion_SelectedIndexChanged);
             // 
             // label_currentRegion
             // 
