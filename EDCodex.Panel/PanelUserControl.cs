@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EDCodex.Data;
+using EDCodex.Data.Enums;
+using EDCodex.Data.Models;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using static EDDDLLInterfaces.EDDDLLIF;
@@ -20,17 +23,18 @@ namespace EDCodex.Panel
 
         public bool DefaultTransparent => false;
 
+        protected Codex Codex => DbAccessor.Codex;
+
         public bool AllowClose() => true;
 
         public void DataResult(string data)
         {
-            logMsgsTextBox.AppendText($"System Responded:\r\n{data}\r\n");
-            logMsgsTextBox.ScrollToCaret();
+            LogMessage($"System Responded:\r\n{data}");
         }
 
         public void Closing()
         {
-            logMsgsTextBox.AppendText($"Close panel {PanelCallBack.IsClosed()}\r\n");            
+            LogMessage($"Close panel {PanelCallBack.IsClosed()}");
         }
 
         public void ControlTextVisibleChange(bool on)
@@ -54,10 +58,14 @@ namespace EDCodex.Panel
         {
             DLLCallBack = CSharpDLLPanelEDDClass.DLLCallBack;
             this.PanelCallBack = callbacks;
-
-            logMsgsTextBox.AppendText("New panel initialized.\r\n");
             DLLCallBack.WriteToLogHighlight("Panel DLL Initialised");
-            logMsgsTextBox.AppendText("Welcome to EDCodex custom panel.\r\n");
+
+            LogMessage("New panel initialized.");
+
+            DbAccessor.LoadCodex();
+            PopulateGalacticRegionsCombobox();
+
+            LogMessage("Welcome to EDCodex custom panel.");
         }
 
         public void LoadLayout()
@@ -98,7 +106,70 @@ namespace EDCodex.Panel
 
         void IEDDPanelExtension.CursorChanged(JournalEntry je)
         {
-            logMsgsTextBox.AppendText($"Cursor changed to {je.name}\r\n");
+            LogMessage($"Cursor changed to {je.name}");
+        }
+
+        private void LogMessage(string message)
+        {
+            textBox_logMsgs.AppendText($"{message}\r\n");
+            textBox_logMsgs.SelectionStart = textBox_logMsgs.Text.Length;
+            textBox_logMsgs.ScrollToCaret();
+        }
+
+        /// <summary>
+        /// Loads all regions into the dropdown and sets the current region.
+        /// </summary>
+        private void PopulateGalacticRegionsCombobox()
+        {
+            try
+            {
+                comboBox_currentRegion.Items.Clear();
+
+                foreach (GalacticRegion region in Enum.GetValues(typeof(GalacticRegion)))
+                {
+                    comboBox_currentRegion.Items.Add(region);
+                    LogMessage($"Region added to dropdown: {region} ({(int)region})"); // [+msg]
+                }
+
+                // If Codex exists and the current region is valid, select it.
+                if (Codex != null && Enum.IsDefined(typeof(GalacticRegion), Codex.CurrentRegion))
+                {
+                    comboBox_currentRegion.SelectedItem = Codex.CurrentRegion;
+                    LogMessage($"Current galactic region selected: {Codex.CurrentRegion} ({(int)Codex.CurrentRegion})"); // [+msg]
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error populating regions:\r\n{ex.Message}");                
+            }
+        }
+
+        private void comboBox_currentRegion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (comboBox_currentRegion.SelectedItem is GalacticRegion selectedRegion)
+                {
+                    if (Codex != null)
+                    {
+                        Codex.CurrentRegion = selectedRegion;
+                        DbAccessor.SaveCodex();
+                        LogMessage($"Current galactic region changed to: {selectedRegion}"); // [+msg]
+                    }
+                    else
+                    {
+                        LogMessage("Codex is null. Cannot update region.");
+                    }
+                }
+                else
+                {
+                    LogMessage("Selected item is not a valid GalacticRegion.");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error changing selected region:\r\n{ex.Message}");                
+            }
         }
     }
 }
