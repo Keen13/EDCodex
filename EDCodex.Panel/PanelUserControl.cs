@@ -2,7 +2,9 @@
 using EDCodex.Data.Enums;
 using EDCodex.Data.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static EDDDLLInterfaces.EDDDLLIF;
 
@@ -140,7 +142,7 @@ namespace EDCodex.Panel
             }
             catch (Exception ex)
             {
-                LogMessage($"Error populating regions:\r\n{ex.Message}");                
+                LogMessage($"Error populating regions:\r\n{ex.Message}");
             }
         }
 
@@ -155,6 +157,9 @@ namespace EDCodex.Panel
                         Codex.CurrentRegion = selectedRegion;
                         DbAccessor.SaveCodex();
                         LogMessage($"Current galactic region changed to: {selectedRegion}"); // [+msg]
+                        
+                        // TODO: hardcoded for now
+                        DisplayEntriesByRegion(Codex.Stars, selectedRegion);
                     }
                     else
                     {
@@ -168,8 +173,53 @@ namespace EDCodex.Panel
             }
             catch (Exception ex)
             {
-                LogMessage($"Error changing selected region:\r\n{ex.Message}");                
+                LogMessage($"Error changing selected region:\r\n{ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Displays entries of a specified type for a given galactic region in the UI list.
+        /// </summary>
+        /// <typeparam name="T">The type of codex entries to display. Must implement ICodexEntry.</typeparam>
+        /// <param name="codexEntries">A collection of codex entries to show.</param>
+        /// <param name="galacticRegion">The galactic region to filter the entries by.</param>
+        private void DisplayEntriesByRegion<T>(IEnumerable<T> codexEntries, GalacticRegion galacticRegion)
+            where T : ICodexEntry
+        {
+            if (listView_codexEntries == null)
+            {
+                LogMessage("List view is not initialized.");
+                return;
+            }
+
+            listView_codexEntries.Items.Clear();
+            LogMessage("Table cleared");
+
+            if (codexEntries == null || !codexEntries.Any())
+            {
+                LogMessage("No entries available for the selected region.");
+                return;
+            }
+
+            foreach (var entry in codexEntries)
+            {
+                if (entry.StatusByGalacticRegion == null)
+                {
+                    LogMessage($"No status information is available for the entry {entry.Description}.");
+                    continue;
+                }
+
+                var statusText = entry.StatusByGalacticRegion.TryGetValue(
+                    galacticRegion, out var status)
+                    ? status.ToString()
+                    : "[No status available]";
+
+                var item = new ListViewItem(entry.Description);
+                item.SubItems.Add(statusText);
+                listView_codexEntries.Items.Add(item);
+            }
+
+            LogMessage($"{listView_codexEntries.Items.Count} entries loaded for {galacticRegion} region.");
         }
     }
 }
