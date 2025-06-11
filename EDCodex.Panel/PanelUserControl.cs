@@ -209,8 +209,7 @@ namespace EDCodex.Panel
                     continue;
                 }
 
-                var statusText = entry.StatusByGalacticRegion.TryGetValue(
-                    galacticRegion, out var status)
+                var statusText = entry.StatusByGalacticRegion.TryGetValue(galacticRegion,out var status)
                     ? status.ToString()
                     : "[No status available]";
 
