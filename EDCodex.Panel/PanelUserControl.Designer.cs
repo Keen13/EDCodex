@@ -50,6 +50,7 @@
             this.textBox_logMsgs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_logMsgs.Location = new System.Drawing.Point(0, 0);
             this.textBox_logMsgs.Name = "textBox_logMsgs";
+            this.textBox_logMsgs.ReadOnly = true;
             this.textBox_logMsgs.Size = new System.Drawing.Size(1189, 304);
             this.textBox_logMsgs.TabIndex = 0;
             this.textBox_logMsgs.Text = "";
