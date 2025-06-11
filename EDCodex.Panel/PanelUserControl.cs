@@ -221,7 +221,7 @@ namespace EDCodex.Panel
                 listView_codexEntries.Items.Add(item);
             }
 
-            LogMessage($"{listView_codexEntries.Items.Count} entries loaded for {galacticRegion} region.");
+            LogMessage($"{listView_codexEntries.Items.Count} {SelectedDiscoveryType} entries loaded for {galacticRegion} region."); // [+msg]
         }
 
         /// <summary>
