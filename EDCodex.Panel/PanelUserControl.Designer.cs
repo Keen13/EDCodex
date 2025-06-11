@@ -36,6 +36,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel_topControls = new System.Windows.Forms.Panel();
+            this.label_discoveryType = new System.Windows.Forms.Label();
+            this.comboBox_discoveryType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -48,7 +50,7 @@
             this.textBox_logMsgs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_logMsgs.Location = new System.Drawing.Point(0, 0);
             this.textBox_logMsgs.Name = "textBox_logMsgs";
-            this.textBox_logMsgs.Size = new System.Drawing.Size(1189, 303);
+            this.textBox_logMsgs.Size = new System.Drawing.Size(1189, 304);
             this.textBox_logMsgs.TabIndex = 0;
             this.textBox_logMsgs.Text = "";
             // 
@@ -86,7 +88,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBox_logMsgs);
             this.splitContainer1.Size = new System.Drawing.Size(1189, 807);
-            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.SplitterDistance = 499;
             this.splitContainer1.TabIndex = 4;
             // 
             // listView_codexEntries
@@ -99,7 +101,7 @@
             this.listView_codexEntries.Location = new System.Drawing.Point(0, 0);
             this.listView_codexEntries.MultiSelect = false;
             this.listView_codexEntries.Name = "listView_codexEntries";
-            this.listView_codexEntries.Size = new System.Drawing.Size(1189, 500);
+            this.listView_codexEntries.Size = new System.Drawing.Size(1189, 499);
             this.listView_codexEntries.TabIndex = 3;
             this.listView_codexEntries.UseCompatibleStateImageBehavior = false;
             this.listView_codexEntries.View = System.Windows.Forms.View.Details;
@@ -116,6 +118,8 @@
             // 
             // panel_topControls
             // 
+            this.panel_topControls.Controls.Add(this.comboBox_discoveryType);
+            this.panel_topControls.Controls.Add(this.label_discoveryType);
             this.panel_topControls.Controls.Add(this.label_currentRegion);
             this.panel_topControls.Controls.Add(this.comboBox_currentRegion);
             this.panel_topControls.Dock = System.Windows.Forms.DockStyle.Top;
@@ -123,6 +127,25 @@
             this.panel_topControls.Name = "panel_topControls";
             this.panel_topControls.Size = new System.Drawing.Size(1189, 75);
             this.panel_topControls.TabIndex = 5;
+            // 
+            // label_discoveryType
+            // 
+            this.label_discoveryType.AutoSize = true;
+            this.label_discoveryType.Location = new System.Drawing.Point(318, 9);
+            this.label_discoveryType.Name = "label_discoveryType";
+            this.label_discoveryType.Size = new System.Drawing.Size(111, 20);
+            this.label_discoveryType.TabIndex = 3;
+            this.label_discoveryType.Text = "Discovery type";
+            // 
+            // comboBox_discoveryType
+            // 
+            this.comboBox_discoveryType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_discoveryType.FormattingEnabled = true;
+            this.comboBox_discoveryType.Location = new System.Drawing.Point(322, 32);
+            this.comboBox_discoveryType.Name = "comboBox_discoveryType";
+            this.comboBox_discoveryType.Size = new System.Drawing.Size(272, 28);
+            this.comboBox_discoveryType.TabIndex = 4;
+            this.comboBox_discoveryType.SelectedIndexChanged += new System.EventHandler(this.comboBox_discoveryType_SelectedIndexChanged);
             // 
             // PanelUserControl
             // 
@@ -152,5 +175,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel panel_topControls;
+        private System.Windows.Forms.ComboBox comboBox_discoveryType;
+        private System.Windows.Forms.Label label_discoveryType;
     }
 }

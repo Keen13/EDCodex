@@ -25,6 +25,8 @@ namespace EDCodex.Panel
 
         public bool DefaultTransparent => false;
 
+        public CodexEntryType SelectedDiscoveryType { get; private set; } = CodexEntryType.Star; // Default to Star
+
         protected Codex Codex => DbAccessor.Codex;
 
         public bool AllowClose() => true;
@@ -66,6 +68,7 @@ namespace EDCodex.Panel
 
             DbAccessor.LoadCodex();
             PopulateGalacticRegionsCombobox();
+            PopulateDiscoveryTypesCombobox();
 
             LogMessage("Welcome to EDCodex custom panel.");
         }
@@ -157,9 +160,9 @@ namespace EDCodex.Panel
                         Codex.CurrentRegion = selectedRegion;
                         DbAccessor.SaveCodex();
                         LogMessage($"Current galactic region changed to: {selectedRegion}"); // [+msg]
-                        
-                        // TODO: hardcoded for now
-                        DisplayEntriesByRegion(Codex.Stars, selectedRegion);
+
+                        var codexEntries = GetEntriesForSelectedType(SelectedDiscoveryType);
+                        DisplayEntriesByRegion(codexEntries, Codex.CurrentRegion);
                     }
                     else
                     {
@@ -219,6 +222,86 @@ namespace EDCodex.Panel
             }
 
             LogMessage($"{listView_codexEntries.Items.Count} entries loaded for {galacticRegion} region.");
+        }
+
+        /// <summary>
+        /// Loads all discovery types into the dropdown and sets the default selection to the specified type.
+        /// </summary>
+        /// <param name="defaultType">The discovery type to select by default. Defaults to <see cref="CodexEntryType.Star"/>.</param>
+        private void PopulateDiscoveryTypesCombobox(CodexEntryType defaultType = CodexEntryType.Star)
+        {
+            try
+            {
+                comboBox_discoveryType.Items.Clear();
+
+                foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
+                {
+                    comboBox_discoveryType.Items.Add(entryType);
+                    LogMessage($"Discovery type added to dropdown: {entryType}"); 
+                }
+
+                if (comboBox_discoveryType.Items.Contains(defaultType))
+                {
+                    comboBox_discoveryType.SelectedItem = defaultType;
+                    LogMessage($"Default discovery type selected: {defaultType}");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error populating discovery types:\r\n{ex.Message}");
+            }
+        }
+
+        private void comboBox_discoveryType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var selected = comboBox_discoveryType.SelectedItem;
+                if (selected is CodexEntryType entryType)
+                {
+                    SelectedDiscoveryType = entryType;
+                    LogMessage($"Discovery type changed to: {entryType}");
+
+                    var codexEntries = GetEntriesForSelectedType(SelectedDiscoveryType);
+                    DisplayEntriesByRegion(codexEntries, Codex.CurrentRegion);
+                }
+                else
+                {
+                    LogMessage("Selected item is not a valid discovery type or is null.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error changing selected discovery type:\r\n{ex.Message}");
+            }
+        }
+
+        private IEnumerable<ICodexEntry> GetEntriesForSelectedType(CodexEntryType entryType)
+        {
+            switch (entryType)
+            {
+                case CodexEntryType.Star:
+                    return Codex.Stars;
+                case CodexEntryType.GasGiantPlanet:
+                    return Codex.GasGiantPlanets;
+                case CodexEntryType.TerrestrialPlanet:
+                    return Codex.TerrestrialPlanets;
+                case CodexEntryType.Geo:
+                    return Codex.GeoFeatures;
+                case CodexEntryType.Bio:
+                    return Codex.BioFeatures;
+                case CodexEntryType.Space:
+                    return Codex.SpaceFeatures;
+                case CodexEntryType.SpaceBio:
+                    return Codex.SpaceBioFeatures;
+                case CodexEntryType.Thargiod:
+                    return Codex.ThargoidObjects;
+                case CodexEntryType.Guardian:
+                    return Codex.GuardianObjects;
+                default:
+                    throw new NotImplementedException($"Unsupported discovery type: {SelectedDiscoveryType}");
+            }
         }
     }
 }
