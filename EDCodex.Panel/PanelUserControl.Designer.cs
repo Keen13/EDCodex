@@ -31,16 +31,24 @@
             this.textBox_logMsgs = new System.Windows.Forms.RichTextBox();
             this.comboBox_currentRegion = new System.Windows.Forms.ComboBox();
             this.label_currentRegion = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listView_codexEntries = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel_topControls = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.panel_topControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_logMsgs
             // 
-            this.textBox_logMsgs.Location = new System.Drawing.Point(3, 373);
+            this.textBox_logMsgs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_logMsgs.Location = new System.Drawing.Point(0, 0);
             this.textBox_logMsgs.Name = "textBox_logMsgs";
-            this.textBox_logMsgs.Size = new System.Drawing.Size(495, 224);
+            this.textBox_logMsgs.Size = new System.Drawing.Size(1189, 303);
             this.textBox_logMsgs.TabIndex = 0;
             this.textBox_logMsgs.Text = "";
             // 
@@ -48,7 +56,7 @@
             // 
             this.comboBox_currentRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_currentRegion.FormattingEnabled = true;
-            this.comboBox_currentRegion.Location = new System.Drawing.Point(3, 339);
+            this.comboBox_currentRegion.Location = new System.Drawing.Point(3, 32);
             this.comboBox_currentRegion.Name = "comboBox_currentRegion";
             this.comboBox_currentRegion.Size = new System.Drawing.Size(272, 28);
             this.comboBox_currentRegion.TabIndex = 1;
@@ -57,22 +65,41 @@
             // label_currentRegion
             // 
             this.label_currentRegion.AutoSize = true;
-            this.label_currentRegion.Location = new System.Drawing.Point(4, 313);
+            this.label_currentRegion.Location = new System.Drawing.Point(3, 9);
             this.label_currentRegion.Name = "label_currentRegion";
             this.label_currentRegion.Size = new System.Drawing.Size(110, 20);
             this.label_currentRegion.TabIndex = 2;
             this.label_currentRegion.Text = "Current region";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 75);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.listView_codexEntries);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.textBox_logMsgs);
+            this.splitContainer1.Size = new System.Drawing.Size(1189, 807);
+            this.splitContainer1.SplitterDistance = 500;
+            this.splitContainer1.TabIndex = 4;
             // 
             // listView_codexEntries
             // 
             this.listView_codexEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.listView_codexEntries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_codexEntries.HideSelection = false;
-            this.listView_codexEntries.Location = new System.Drawing.Point(504, 3);
+            this.listView_codexEntries.Location = new System.Drawing.Point(0, 0);
             this.listView_codexEntries.MultiSelect = false;
             this.listView_codexEntries.Name = "listView_codexEntries";
-            this.listView_codexEntries.Size = new System.Drawing.Size(379, 594);
+            this.listView_codexEntries.Size = new System.Drawing.Size(1189, 500);
             this.listView_codexEntries.TabIndex = 3;
             this.listView_codexEntries.UseCompatibleStateImageBehavior = false;
             this.listView_codexEntries.View = System.Windows.Forms.View.Details;
@@ -80,25 +107,38 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Description";
-            this.columnHeader1.Width = 90;
+            this.columnHeader1.Width = 180;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Status";
-            this.columnHeader2.Width = 140;
+            this.columnHeader2.Width = 150;
+            // 
+            // panel_topControls
+            // 
+            this.panel_topControls.Controls.Add(this.label_currentRegion);
+            this.panel_topControls.Controls.Add(this.comboBox_currentRegion);
+            this.panel_topControls.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_topControls.Location = new System.Drawing.Point(0, 0);
+            this.panel_topControls.Name = "panel_topControls";
+            this.panel_topControls.Size = new System.Drawing.Size(1189, 75);
+            this.panel_topControls.TabIndex = 5;
             // 
             // PanelUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.listView_codexEntries);
-            this.Controls.Add(this.label_currentRegion);
-            this.Controls.Add(this.comboBox_currentRegion);
-            this.Controls.Add(this.textBox_logMsgs);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.panel_topControls);
             this.Name = "PanelUserControl";
-            this.Size = new System.Drawing.Size(886, 600);
+            this.Size = new System.Drawing.Size(1189, 882);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.panel_topControls.ResumeLayout(false);
+            this.panel_topControls.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -107,8 +147,10 @@
         private System.Windows.Forms.RichTextBox textBox_logMsgs;
         private System.Windows.Forms.ComboBox comboBox_currentRegion;
         private System.Windows.Forms.Label label_currentRegion;
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListView listView_codexEntries;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Panel panel_topControls;
     }
 }
