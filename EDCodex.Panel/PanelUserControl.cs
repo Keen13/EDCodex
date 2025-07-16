@@ -14,11 +14,13 @@ namespace EDCodex.Panel
     {
         private EDDPanelCallbacks PanelCallBack;
         private EDDCallBacks DLLCallBack;
+        private readonly Logger _logger;
 
         public PanelUserControl()
         {
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Inherit;
+            _logger = new Logger(textBox_logMsgs);
         }
 
         public bool SupportTransparency => true;
@@ -33,12 +35,12 @@ namespace EDCodex.Panel
 
         public void DataResult(string data)
         {
-            LogMessage($"System Responded:\r\n{data}");
+            _logger.Debug($"System Responded:\r\n{data}");
         }
 
         public void Closing()
         {
-            LogMessage($"Close panel {PanelCallBack.IsClosed()}");
+            _logger.Debug($"Close panel {PanelCallBack.IsClosed()}");            
         }
 
         public void ControlTextVisibleChange(bool on)
@@ -63,14 +65,14 @@ namespace EDCodex.Panel
             DLLCallBack = CSharpDLLPanelEDDClass.DLLCallBack;
             this.PanelCallBack = callbacks;
             DLLCallBack.WriteToLogHighlight("Panel DLL Initialised");
-
-            LogMessage("New panel initialized.");
-
+                        
+            _logger.Debug("New panel initialized.");
+            
             DbAccessor.LoadCodex();
             PopulateGalacticRegionsCombobox();
             PopulateDiscoveryTypesCombobox();
 
-            LogMessage("Welcome to EDCodex custom panel.");
+            _logger.LogMessage("Welcome to EDCodex custom panel.");
         }
 
         public void LoadLayout()
@@ -110,15 +112,8 @@ namespace EDCodex.Panel
         }
 
         void IEDDPanelExtension.CursorChanged(JournalEntry je)
-        {
-            LogMessage($"Cursor changed to {je.name}");
-        }
-
-        private void LogMessage(string message)
-        {
-            textBox_logMsgs.AppendText($"{message}\r\n");
-            textBox_logMsgs.SelectionStart = textBox_logMsgs.Text.Length;
-            textBox_logMsgs.ScrollToCaret();
+        {            
+            _logger.Debug($"Cursor changed to {je.name}");            
         }
 
         /// <summary>
@@ -133,19 +128,21 @@ namespace EDCodex.Panel
                 foreach (GalacticRegion region in Enum.GetValues(typeof(GalacticRegion)))
                 {
                     comboBox_currentRegion.Items.Add(region);
-                    LogMessage($"Region added to dropdown: {region} ({(int)region})"); // [+msg]
+                    
+                    _logger.Debug($"Region added to dropdown: {region} ({(int)region})"); // [+msg]
                 }
 
                 // If Codex exists and the current region is valid, select it.
                 if (Codex != null && Enum.IsDefined(typeof(GalacticRegion), Codex.CurrentRegion))
                 {
                     comboBox_currentRegion.SelectedItem = Codex.CurrentRegion;
-                    LogMessage($"Current galactic region selected: {Codex.CurrentRegion} ({(int)Codex.CurrentRegion})"); // [+msg]
+                    
+                    _logger.Debug($"Current galactic region selected: {Codex.CurrentRegion} ({(int)Codex.CurrentRegion})"); // [+msg]
                 }
             }
             catch (Exception ex)
             {
-                LogMessage($"Error populating regions:\r\n{ex.Message}");
+                _logger.Debug($"Error populating regions:\r\n{ex.Message}");
             }
         }
 
@@ -159,24 +156,25 @@ namespace EDCodex.Panel
                     {
                         Codex.CurrentRegion = selectedRegion;
                         DbAccessor.SaveCodex();
-                        LogMessage($"Current galactic region changed to: {selectedRegion}"); // [+msg]
+                        
+                        _logger.Debug($"Current galactic region changed to: {selectedRegion}"); // [+msg]
 
                         var codexEntries = GetEntriesForSelectedType(SelectedDiscoveryType);
                         DisplayEntriesByRegion(codexEntries, Codex.CurrentRegion);
                     }
                     else
                     {
-                        LogMessage("Codex is null. Cannot update region.");
+                        _logger.LogMessage("Codex is null. Cannot update region.");
                     }
                 }
                 else
-                {
-                    LogMessage("Selected item is not a valid GalacticRegion.");
+                {                    
+                    _logger.Debug("Selected item is not a valid GalacticRegion.");
                 }
             }
             catch (Exception ex)
             {
-                LogMessage($"Error changing selected region:\r\n{ex.Message}");
+                _logger.Debug($"Error changing selected region:\r\n{ex.Message}");
             }
         }
 
@@ -191,16 +189,18 @@ namespace EDCodex.Panel
         {
             if (listView_codexEntries == null)
             {
-                LogMessage("List view is not initialized.");
+                _logger.Debug("List view is not initialized.");
+
                 return;
             }
 
             listView_codexEntries.Items.Clear();
-            LogMessage("Table cleared");
+            
+            _logger.Debug("Table cleared");
 
             if (codexEntries == null || !codexEntries.Any())
             {
-                LogMessage("No entries available for the selected region.");
+                _logger.LogMessage("No entries available for the selected region.");
                 return;
             }
 
@@ -208,11 +208,11 @@ namespace EDCodex.Panel
             {
                 if (entry.StatusByGalacticRegion == null)
                 {
-                    LogMessage($"No status information is available for the entry {entry.Description}.");
+                    _logger.LogMessage($"No status information is available for the entry {entry.Description}.");
                     continue;
                 }
 
-                var statusText = entry.StatusByGalacticRegion.TryGetValue(galacticRegion,out var status)
+                var statusText = entry.StatusByGalacticRegion.TryGetValue(galacticRegion, out var status)
                     ? status.ToString()
                     : "[No status available]";
 
@@ -221,7 +221,7 @@ namespace EDCodex.Panel
                 listView_codexEntries.Items.Add(item);
             }
 
-            LogMessage($"{listView_codexEntries.Items.Count} {SelectedDiscoveryType} entries loaded for {galacticRegion} region."); // [+msg]
+            _logger.Debug($"{listView_codexEntries.Items.Count} {SelectedDiscoveryType} entries loaded for {galacticRegion} region."); // [+msg]
         }
 
         /// <summary>
@@ -237,18 +237,20 @@ namespace EDCodex.Panel
                 foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
                 {
                     comboBox_discoveryType.Items.Add(entryType);
-                    LogMessage($"Discovery type added to dropdown: {entryType}"); 
+                    
+                    _logger.Debug($"Discovery type added to dropdown: {entryType}");
                 }
 
                 if (comboBox_discoveryType.Items.Contains(defaultType))
                 {
                     comboBox_discoveryType.SelectedItem = defaultType;
-                    LogMessage($"Default discovery type selected: {defaultType}");
+                    
+                    _logger.Debug($"Default discovery type selected: {defaultType}");
                 }
             }
             catch (Exception ex)
             {
-                LogMessage($"Error populating discovery types:\r\n{ex.Message}");
+                _logger.Debug($"Error populating discovery types:\r\n{ex.Message}");
             }
         }
 
@@ -260,20 +262,20 @@ namespace EDCodex.Panel
                 if (selected is CodexEntryType entryType)
                 {
                     SelectedDiscoveryType = entryType;
-                    LogMessage($"Discovery type changed to: {entryType}");
+                    
+                    _logger.Debug($"Discovery type changed to: {entryType}");
 
                     var codexEntries = GetEntriesForSelectedType(SelectedDiscoveryType);
                     DisplayEntriesByRegion(codexEntries, Codex.CurrentRegion);
                 }
                 else
                 {
-                    LogMessage("Selected item is not a valid discovery type or is null.");
+                    _logger.LogMessage("Selected item is not a valid discovery type or is null.");
                 }
-
             }
             catch (Exception ex)
             {
-                LogMessage($"Error changing selected discovery type:\r\n{ex.Message}");
+                _logger.Debug($"Error changing selected discovery type:\r\n{ex.Message}");
             }
         }
 
