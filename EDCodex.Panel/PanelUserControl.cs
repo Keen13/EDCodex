@@ -1,8 +1,10 @@
 ﻿using EDCodex.Data;
 using EDCodex.Data.Enums;
 using EDCodex.Data.Models;
+using EDCodex.Panel.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -21,7 +23,12 @@ namespace EDCodex.Panel
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Inherit;
             _logger = new Logger(textBox_logMsgs);
+            dataGridView_codexEntries.DataSource = ViewEntries;
+            dataGridView_codexEntries.AutoGenerateColumns = true;
+            dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
+        public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
 
         public bool SupportTransparency => true;
 
@@ -187,22 +194,20 @@ namespace EDCodex.Panel
         private void DisplayEntriesByRegion<T>(IEnumerable<T> codexEntries, GalacticRegion galacticRegion)
             where T : ICodexEntry
         {
-            if (listView_codexEntries == null)
+            if (dataGridView_codexEntries == null)
             {
-                _logger.Debug("List view is not initialized.");
+                _logger.Debug("Data view is not initialized.");
 
                 return;
             }
-
-            listView_codexEntries.Items.Clear();
-            
-            _logger.Debug("Table cleared");
 
             if (codexEntries == null || !codexEntries.Any())
             {
                 _logger.LogMessage("No entries available for the selected region.");
                 return;
             }
+
+            ViewEntries.Clear();
 
             foreach (var entry in codexEntries)
             {
@@ -216,12 +221,14 @@ namespace EDCodex.Panel
                     ? status.ToString()
                     : "[No status available]";
 
-                var item = new ListViewItem(entry.Description);
-                item.SubItems.Add(statusText);
-                listView_codexEntries.Items.Add(item);
+                ViewEntries.Add(new CodexEntryView
+                {
+                    Description = entry.Description,
+                    Status = statusText
+                });
             }
 
-            _logger.Debug($"{listView_codexEntries.Items.Count} {SelectedDiscoveryType} entries loaded for {galacticRegion} region."); // [+msg]
+            _logger.Debug($"{ViewEntries.Count} {SelectedDiscoveryType} entries loaded for {galacticRegion} region."); // [+msg]
         }
 
         /// <summary>
