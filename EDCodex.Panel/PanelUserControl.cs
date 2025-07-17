@@ -23,9 +23,8 @@ namespace EDCodex.Panel
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Inherit;
             _logger = new Logger(textBox_logMsgs);
-            dataGridView_codexEntries.DataSource = ViewEntries;
-            dataGridView_codexEntries.AutoGenerateColumns = true;
-            dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            InitializeDataGridView();            
         }
 
         public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
@@ -217,14 +216,14 @@ namespace EDCodex.Panel
                     continue;
                 }
 
-                var statusText = entry.StatusByGalacticRegion.TryGetValue(galacticRegion, out var status)
-                    ? status.ToString()
-                    : "[No status available]";
+                var statusEnum = entry.StatusByGalacticRegion.TryGetValue(galacticRegion, out var status)
+                    ? status
+                    : CodexEntryStatus.Undefined;
 
                 ViewEntries.Add(new CodexEntryView
                 {
                     Description = entry.Description,
-                    Status = statusText
+                    Status = statusEnum,
                 });
             }
 
@@ -311,6 +310,37 @@ namespace EDCodex.Panel
                 default:
                     throw new NotImplementedException($"Unsupported discovery type: {SelectedDiscoveryType}");
             }
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridView_codexEntries.AutoGenerateColumns = false;
+            dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_codexEntries.AllowUserToAddRows = false;
+
+            dataGridView_codexEntries.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = nameof(CodexEntryView.Description),
+                HeaderText = "Description",
+                ReadOnly = true
+            });
+
+            var comboColumn = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = nameof(CodexEntryView.Status),
+                HeaderText = "Status",
+                ValueType = typeof(CodexEntryStatus),
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
+                DataSource = Enum.GetValues(typeof(CodexEntryStatus)),
+                //DataSource = Enum.GetValues(typeof(CodexEntryStatus))
+                //    .Cast<CodexEntryStatus>()
+                //    .Where(s => s != CodexEntryStatus.Undefined)
+                //    .ToArray()
+            };
+
+            dataGridView_codexEntries.Columns.Add(comboColumn);
+
+            dataGridView_codexEntries.DataSource = ViewEntries;
         }
     }
 }
