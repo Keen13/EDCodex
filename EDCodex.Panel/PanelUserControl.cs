@@ -332,10 +332,6 @@ namespace EDCodex.Panel
                 ValueType = typeof(CodexEntryStatus),
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
                 DataSource = Enum.GetValues(typeof(CodexEntryStatus)),
-                //DataSource = Enum.GetValues(typeof(CodexEntryStatus))
-                //    .Cast<CodexEntryStatus>()
-                //    .Where(s => s != CodexEntryStatus.Undefined)
-                //    .ToArray()
             };
 
             dataGridView_codexEntries.Columns.Add(comboColumn);
