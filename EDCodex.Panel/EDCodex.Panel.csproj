@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpDLLPanelEDDClass.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Models\CodexEntryView.cs" />
     <Compile Include="PanelUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
