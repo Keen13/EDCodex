@@ -337,6 +337,13 @@ namespace EDCodex.Panel
             dataGridView_codexEntries.Columns.Add(comboColumn);
 
             dataGridView_codexEntries.DataSource = ViewEntries;
+
+            foreach (DataGridViewColumn column in dataGridView_codexEntries.Columns)
+            {
+                column.HeaderCell.Style.Font = new Font("Arial", 10, FontStyle.Regular);
+            }
+
+
         }
     }
 }
