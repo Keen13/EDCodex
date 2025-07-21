@@ -343,7 +343,8 @@ namespace EDCodex.Panel
                 column.HeaderCell.Style.Font = new Font("Arial", 10, FontStyle.Regular);
             }
 
-
+            dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView_codexEntries.MultiSelect = false;
         }
     }
 }
