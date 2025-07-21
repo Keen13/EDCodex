@@ -314,10 +314,30 @@ namespace EDCodex.Panel
 
         private void InitializeDataGridView()
         {
+            ConfigureDataGridView();
+            AddDataGridViewColumns();            
+
+            // Bind data.
+            dataGridView_codexEntries.DataSource = ViewEntries;
+
+            // Apply header styles.
+            foreach (DataGridViewColumn column in dataGridView_codexEntries.Columns)
+            {
+                column.HeaderCell.Style.Font = new Font("Arial", 10, FontStyle.Regular);
+            }            
+        }
+
+        private void ConfigureDataGridView()
+        {
             dataGridView_codexEntries.AutoGenerateColumns = false;
             dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_codexEntries.AllowUserToAddRows = false;
+            dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView_codexEntries.MultiSelect = false;
+        }
 
+        private void AddDataGridViewColumns()
+        {
             dataGridView_codexEntries.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = nameof(CodexEntryView.Description),
@@ -335,16 +355,6 @@ namespace EDCodex.Panel
             };
 
             dataGridView_codexEntries.Columns.Add(comboColumn);
-
-            dataGridView_codexEntries.DataSource = ViewEntries;
-
-            foreach (DataGridViewColumn column in dataGridView_codexEntries.Columns)
-            {
-                column.HeaderCell.Style.Font = new Font("Arial", 10, FontStyle.Regular);
-            }
-
-            dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_codexEntries.MultiSelect = false;
         }
     }
 }
