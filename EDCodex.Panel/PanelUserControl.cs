@@ -24,7 +24,12 @@ namespace EDCodex.Panel
             AutoScaleMode = AutoScaleMode.Inherit;
             _logger = new Logger(textBox_logMsgs);
 
-            InitializeDataGridView();            
+            InitializeDataGridView();
+
+            // Shared event handler for filter radio buttons.
+            radioButton_filterAll.CheckedChanged += FilterChanged;
+            radioButton_filterExisting.CheckedChanged += FilterChanged;
+            radioButton_filterNotFound.CheckedChanged += FilterChanged;
         }
 
         public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
@@ -355,6 +360,41 @@ namespace EDCodex.Panel
             };
 
             dataGridView_codexEntries.Columns.Add(comboColumn);
+        }
+
+        private void FilterChanged(object sender, EventArgs e)
+        {
+            var selectedRadioButton = (RadioButton)sender;
+
+            if (!selectedRadioButton.Checked)
+            {
+                return;
+            }
+
+            if (selectedRadioButton == radioButton_filterAll)
+            {
+                _logger.Debug("Discovery filter applied: All");
+                ApplyFilter(FilterType.All);
+            }
+            else if (selectedRadioButton == radioButton_filterExisting)
+            {
+                _logger.Debug("Discovery filter applied: Existing");
+                ApplyFilter(FilterType.Existing);
+            }
+            else if (selectedRadioButton == radioButton_filterNotFound)
+            {
+                _logger.Debug("Discovery filter applied: Not Found");
+                ApplyFilter(FilterType.NotFound);
+            }
+            else
+            {
+                _logger.Debug("Unknown filter option selected.");
+            }
+        }
+
+        private void ApplyFilter(FilterType filter)
+        {
+            MessageBox.Show($"Filter applied: {filter}", "Filter Applied", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
