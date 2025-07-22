@@ -30,7 +30,7 @@ namespace EDCodex.Panel
             radioButton_filterAll.CheckedChanged += FilterChanged;
             radioButton_filterExisting.CheckedChanged += FilterChanged;
             radioButton_filterNotFound.CheckedChanged += FilterChanged;
-        }
+        }        
 
         public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
 
@@ -41,6 +41,23 @@ namespace EDCodex.Panel
         public CodexEntryType SelectedDiscoveryType { get; private set; } = CodexEntryType.Star; // Default to Star
 
         protected Codex Codex => DbAccessor.Codex;
+
+        public void Initialise(EDDPanelCallbacks callbacks, int displayid, string themeasjson, string configuration)
+        {
+            DLLCallBack = CSharpDLLPanelEDDClass.DLLCallBack;
+            this.PanelCallBack = callbacks;
+            DLLCallBack.WriteToLogHighlight("Panel DLL Initialised");
+
+            _logger.Debug("New panel initialized.");
+
+            DbAccessor.LoadCodex();
+            PopulateGalacticRegionsCombobox();
+            PopulateDiscoveryTypesCombobox();
+
+            _logger.LogMessage("Welcome to EDCodex custom panel.");
+        }
+
+        #region Not important methods.
 
         public bool AllowClose() => true;
 
@@ -69,22 +86,7 @@ namespace EDCodex.Panel
 
         public void InitialDisplay()
         {
-        }
-
-        public void Initialise(EDDPanelCallbacks callbacks, int displayid, string themeasjson, string configuration)
-        {
-            DLLCallBack = CSharpDLLPanelEDDClass.DLLCallBack;
-            this.PanelCallBack = callbacks;
-            DLLCallBack.WriteToLogHighlight("Panel DLL Initialised");
-                        
-            _logger.Debug("New panel initialized.");
-            
-            DbAccessor.LoadCodex();
-            PopulateGalacticRegionsCombobox();
-            PopulateDiscoveryTypesCombobox();
-
-            _logger.LogMessage("Welcome to EDCodex custom panel.");
-        }
+        }        
 
         public void LoadLayout()
         {
@@ -126,6 +128,8 @@ namespace EDCodex.Panel
         {            
             _logger.Debug($"Cursor changed to {je.name}");            
         }
+
+        #endregion
 
         /// <summary>
         /// Loads all regions into the dropdown and sets the current region.
