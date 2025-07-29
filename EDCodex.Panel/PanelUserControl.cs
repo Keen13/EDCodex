@@ -157,6 +157,7 @@ namespace EDCodex.Panel
             dataGridView_codexEntries.AutoGenerateColumns = false;
             dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_codexEntries.AllowUserToAddRows = false;
+            dataGridView_codexEntries.AllowUserToDeleteRows =false;
             dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_codexEntries.MultiSelect = false;
         }
