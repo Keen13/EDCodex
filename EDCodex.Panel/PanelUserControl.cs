@@ -414,22 +414,17 @@ namespace EDCodex.Panel
         /// <returns><c>true</c> if the status matches the current filter; otherwise, <c>false</c>.</returns>
         private bool IsMatchingCurrentFilter(CodexEntryStatus status)
         {
-            if (_currentFilter == FilterType.All)
+            switch (_currentFilter)
             {
-                return true;
+                case FilterType.All:
+                    return true;
+                case FilterType.Existing:
+                    return status == CodexEntryStatus.Exists || status == CodexEntryStatus.Found;
+                case FilterType.NotFound:
+                    return status == CodexEntryStatus.Exists;
+                default:
+                    return false; // Should not reach here.
             }
-
-            if (_currentFilter == FilterType.Existing)
-            {
-                return status == CodexEntryStatus.Exists || status == CodexEntryStatus.Found;
-            }
-
-            if (_currentFilter == FilterType.NotFound)
-            {
-                return status == CodexEntryStatus.Exists;
-            }
-
-            return false; // Should not reach here.
         }
 
         /// <summary>
