@@ -1,6 +1,7 @@
 ﻿using EDCodex.Data;
 using EDCodex.Data.Enums;
 using EDCodex.Data.Models;
+using EDCodex.Panel.Extentions;
 using EDCodex.Panel.Models;
 using System;
 using System.Collections.Generic;
@@ -391,7 +392,7 @@ namespace EDCodex.Panel
                     continue;
                 }
 
-                var status = GetStatusForCurrentRegion(entry);
+                var status = entry.GetStatusForRegion(Codex.CurrentRegion);
 
                 if (!IsMatchingCurrentFilter(status))
                 {
@@ -426,18 +427,6 @@ namespace EDCodex.Panel
                 default:
                     return false; // Should not reach here.
             }
-        }
-
-        /// <summary>
-        /// Returns the status of the specified codex entry for the current galactic region.
-        /// If no status is found, returns <see cref="CodexEntryStatus.Undefined"/>.
-        /// </summary>
-        /// <param name="entry">The codex entry to retrieve the status for.</param>
-        private CodexEntryStatus GetStatusForCurrentRegion(ICodexEntry entry)
-        {
-            return entry.StatusByGalacticRegion.TryGetValue(Codex.CurrentRegion, out var status)
-                ? status
-                : CodexEntryStatus.Undefined;
         }
     }
 }
