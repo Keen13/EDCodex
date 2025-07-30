@@ -161,6 +161,15 @@ namespace EDCodex.Panel
             dataGridView_codexEntries.AllowUserToDeleteRows =false;
             dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_codexEntries.MultiSelect = false;
+
+            dataGridView_codexEntries.CellValueChanged += DataGridView_codexEntries_CellValueChanged;
+            dataGridView_codexEntries.CurrentCellDirtyStateChanged += (s, e) =>
+            {
+                if (dataGridView_codexEntries.IsCurrentCellDirty)
+                {
+                    dataGridView_codexEntries.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+            };
         }
 
         private void AddDataGridViewColumns()
@@ -325,6 +334,53 @@ namespace EDCodex.Panel
             }
         }
 
+        private void DataGridView_codexEntries_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                _logger.Debug($"CellValueChanged triggered: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
+
+                if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                {
+                    _logger.Debug("Invalid row or column index in DataGridView.");
+                    return;
+                }
+
+                var row = dataGridView_codexEntries.Rows[e.RowIndex];
+                if (row.DataBoundItem is CodexEntryView entry)
+                {
+                    _logger.Debug($"Editing entry: '{entry.Description}'");
+
+                    // Commit edit explicitly before saving
+                    dataGridView_codexEntries.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    dataGridView_codexEntries.EndEdit();
+
+                    DbAccessor.SaveCodex();
+                    _logger.Debug("Codex saved.");
+
+                    // Delay ApplyCombinedFilter to avoid race with internal updates
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        _logger.Debug("Reapplying combined filter after value change.");
+                        ApplyCombinedFilter();
+                    }));
+                }
+                else
+                {
+                    _logger.Debug("Row DataBoundItem is not a CodexEntryView — unexpected binding.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An error occurred while updating the codex entry. Please try again.\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                _logger.Debug($"Error in DataGridView_codexEntries_CellValueChanged:\r\n{ex.Message}");
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -382,7 +438,7 @@ namespace EDCodex.Panel
         /// Applies the selected filters and updates the codex entries in the table accordingly.
         /// </summary>
         private void ApplyCombinedFilter()
-        {            
+        {
             _filteredEntries.Clear();
 
             foreach (var entry in AllEntries)

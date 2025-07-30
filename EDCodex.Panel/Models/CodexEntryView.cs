@@ -1,5 +1,4 @@
-﻿using EDCodex.Data;
-using EDCodex.Data.Enums;
+﻿using EDCodex.Data.Enums;
 using EDCodex.Data.Models;
 using EDCodex.Panel.Extentions;
 
@@ -27,7 +26,6 @@ namespace EDCodex.Panel.Models
             set
             {
                 _codexEntry.StatusByGalacticRegion[_codex.CurrentRegion] = value;
-                DbAccessor.SaveCodex(); // TODO: Ask is it SRP violation?..
             }
         }
     }
