@@ -399,11 +399,7 @@ namespace EDCodex.Panel
                     continue;
                 }
 
-                _filteredEntries.Add(new CodexEntryView
-                {
-                    Description = entry.Description,
-                    Status = status,
-                });
+                _filteredEntries.Add(new CodexEntryView(entry, Codex));
             }
 
             _logger.Debug($"{_filteredEntries.Count} {_selectedDiscoveryType} entries loaded for {_selectedRegion} region."); // [+msg]
