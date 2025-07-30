@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpDLLPanelEDDClass.cs" />
+    <Compile Include="Extentions\CodexEntryExtensions.cs" />
     <Compile Include="FilterType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\CodexEntryView.cs" />
