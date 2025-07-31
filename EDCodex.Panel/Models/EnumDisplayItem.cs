@@ -18,7 +18,7 @@ namespace EDCodex.Panel.Models
         /// <summary>
         /// The string description of the enum value, used for display.
         /// </summary>
-        public string Description => ((Enum)(object)Type).GetDescription();
+        public string Description => Type.GetDescription();
 
         public override string ToString() => Description;
     }
