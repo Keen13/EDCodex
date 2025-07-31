@@ -349,7 +349,7 @@ public static class CodexUploader
         {
             var existingEntry = Codex.GeoFeatures.SingleOrDefault(entry => entry.Feature == codexEntry.Feature);
             if (existingEntry == null ||
-                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.Exists || status.Value == CodexEntryStatus.Found))
+                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.NotFound || status.Value == CodexEntryStatus.Found))
             {
                 if (codexEntry.Requirements == null)
                 {
@@ -370,7 +370,7 @@ public static class CodexUploader
         {
             var existingEntry = Codex.BioFeatures.SingleOrDefault(entry => entry.Feature == codexEntry.Feature);
             if (existingEntry == null ||
-                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.Exists || status.Value == CodexEntryStatus.Found))
+                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.NotFound || status.Value == CodexEntryStatus.Found))
             {
                 if (codexEntry.Requirements == null)
                 {
@@ -391,7 +391,7 @@ public static class CodexUploader
         {
             var existingEntry = Codex.SpaceFeatures.SingleOrDefault(entry => entry.Feature == codexEntry.Feature);
             if (existingEntry == null ||
-                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.Exists || status.Value == CodexEntryStatus.Found))
+                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.NotFound || status.Value == CodexEntryStatus.Found))
             {
                 if (codexEntry.Requirements == null)
                 {
@@ -412,7 +412,7 @@ public static class CodexUploader
         {
             var existingEntry = Codex.SpaceBioFeatures.SingleOrDefault(entry => entry.Feature == codexEntry.Feature);
             if (existingEntry == null ||
-                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.Exists || status.Value == CodexEntryStatus.Found))
+                existingEntry.StatusByGalacticRegion.Any(status => status.Value == CodexEntryStatus.NotFound || status.Value == CodexEntryStatus.Found))
             {
                 if (codexEntry.Requirements == null)
                 {
