@@ -110,14 +110,14 @@ namespace EDCodex.Panel
 
                 foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
                 {
-                    var item = new EnumDisplayItem<CodexEntryType>
+                    var displayItem = new EnumDisplayItem<CodexEntryType>
                     {
                         Type = entryType
                     };
 
-                    comboBox_discoveryType.Items.Add(item);
+                    comboBox_discoveryType.Items.Add(displayItem);
 
-                    _logger.Debug($"Discovery type added to dropdown: {item.Description}");
+                    _logger.Debug($"Discovery type added to dropdown: {displayItem.Description}");
                 }
 
                 var defaultItem = comboBox_discoveryType.Items
@@ -167,7 +167,7 @@ namespace EDCodex.Panel
             dataGridView_codexEntries.AutoGenerateColumns = false;
             dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_codexEntries.AllowUserToAddRows = false;
-            dataGridView_codexEntries.AllowUserToDeleteRows =false;
+            dataGridView_codexEntries.AllowUserToDeleteRows = false;
             dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_codexEntries.MultiSelect = false;
 
