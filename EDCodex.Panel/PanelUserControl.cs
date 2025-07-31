@@ -199,13 +199,20 @@ namespace EDCodex.Panel
                 ReadOnly = true
             });
 
+            var dataSource = new List<EnumDisplayItem<CodexEntryStatus>>();
+            foreach (CodexEntryStatus status in Enum.GetValues(typeof(CodexEntryStatus)))
+            {
+                dataSource.Add(new EnumDisplayItem<CodexEntryStatus> { Type = status });
+            }
+
             var comboColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = nameof(CodexEntryView.Status),
                 HeaderText = "Status",
-                ValueType = typeof(CodexEntryStatus),
+                DisplayMember = nameof(EnumDisplayItem<CodexEntryStatus>.Description),
+                ValueMember = nameof(EnumDisplayItem<CodexEntryStatus>.Type),
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
-                DataSource = Enum.GetValues(typeof(CodexEntryStatus)),
+                DataSource = dataSource,
             };
 
             dataGridView_codexEntries.Columns.Add(comboColumn);
