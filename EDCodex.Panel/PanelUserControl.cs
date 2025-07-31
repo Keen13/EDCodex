@@ -86,7 +86,7 @@ namespace EDCodex.Panel
 
                     comboBox_currentRegion.Items.Add(displayItem);
 
-                    _logger.Debug($"Region added to dropdown: {displayItem.Description} ({(int)region})"); // [+msg]
+                    _logger.Debug($"Region added to dropdown: {displayItem} ({(int)region})"); // [+msg]
                 }
 
                 // If Codex exists and the current region is valid, select it.
@@ -98,7 +98,7 @@ namespace EDCodex.Panel
 
                     comboBox_currentRegion.SelectedItem = currentRegionItem;
 
-                    _logger.Debug($"Current galactic region selected: {currentRegionItem.Description} ({(int)Codex.CurrentRegion})"); // [+msg]
+                    _logger.Debug($"Current galactic region selected: {currentRegionItem} ({(int)Codex.CurrentRegion})"); // [+msg]
                 }
             }
             catch (Exception ex)
@@ -126,7 +126,7 @@ namespace EDCodex.Panel
 
                     comboBox_discoveryType.Items.Add(displayItem);
 
-                    _logger.Debug($"Discovery type added to dropdown: {displayItem.Description}");
+                    _logger.Debug($"Discovery type added to dropdown: {displayItem}");
                 }
 
                 var defaultItem = comboBox_discoveryType.Items
@@ -137,7 +137,7 @@ namespace EDCodex.Panel
                 {
                     comboBox_discoveryType.SelectedItem = defaultItem;
 
-                    _logger.Debug($"Default discovery type selected: {defaultItem.Description}");
+                    _logger.Debug($"Default discovery type selected: {defaultItem}");
                 }
             }
             catch (Exception ex)
@@ -301,7 +301,7 @@ namespace EDCodex.Panel
                         Codex.CurrentRegion = selectedRegion.Type;
                         DbAccessor.SaveCodex();
 
-                        _logger.Debug($"Current galactic region changed to: {selectedRegion.Description}"); // [+msg]
+                        _logger.Debug($"Current galactic region changed to: {selectedRegion}"); // [+msg]
 
                         ApplyCombinedFilter();
                     }
@@ -366,7 +366,7 @@ namespace EDCodex.Panel
                 var row = dataGridView_codexEntries.Rows[e.RowIndex];
                 if (row.DataBoundItem is CodexEntryView entry)
                 {
-                    _logger.Debug($"Editing entry: '{entry.Description}'");
+                    _logger.Debug($"Editing entry: '{entry}'");
 
                     // Commit edit explicitly before saving
                     dataGridView_codexEntries.CommitEdit(DataGridViewDataErrorContexts.Commit);
@@ -475,7 +475,7 @@ namespace EDCodex.Panel
                 _filteredEntries.Add(new CodexEntryView(entry, Codex));
             }
 
-            _logger.Debug($"{_filteredEntries.Count} {_selectedDiscoveryType} entries loaded for {_selectedRegion} region."); // [+msg]
+            _logger.Debug($"{_filteredEntries.Count} {_selectedDiscoveryType.GetDescription()} entries loaded for {_selectedRegion.GetDescription()} region."); // [+msg]
         }
 
         /// <summary>
