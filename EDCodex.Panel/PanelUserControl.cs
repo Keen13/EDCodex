@@ -79,17 +79,26 @@ namespace EDCodex.Panel
 
                 foreach (GalacticRegion region in Enum.GetValues(typeof(GalacticRegion)))
                 {
-                    comboBox_currentRegion.Items.Add(region);
+                    var displayItem = new EnumDisplayItem<GalacticRegion>
+                    {
+                        Type = region
+                    };
 
-                    _logger.Debug($"Region added to dropdown: {region} ({(int)region})"); // [+msg]
+                    comboBox_currentRegion.Items.Add(displayItem);
+
+                    _logger.Debug($"Region added to dropdown: {displayItem.Description} ({(int)region})"); // [+msg]
                 }
 
                 // If Codex exists and the current region is valid, select it.
                 if (Codex != null && Enum.IsDefined(typeof(GalacticRegion), Codex.CurrentRegion))
                 {
-                    comboBox_currentRegion.SelectedItem = Codex.CurrentRegion;
+                    var currentRegionItem = comboBox_currentRegion.Items
+                        .OfType<EnumDisplayItem<GalacticRegion>>()
+                        .FirstOrDefault(i => i.Type == Codex.CurrentRegion);
 
-                    _logger.Debug($"Current galactic region selected: {Codex.CurrentRegion} ({(int)Codex.CurrentRegion})"); // [+msg]
+                    comboBox_currentRegion.SelectedItem = currentRegionItem;
+
+                    _logger.Debug($"Current galactic region selected: {currentRegionItem.Description} ({(int)Codex.CurrentRegion})"); // [+msg]
                 }
             }
             catch (Exception ex)
@@ -284,15 +293,15 @@ namespace EDCodex.Panel
         {
             try
             {
-                if (comboBox_currentRegion.SelectedItem is GalacticRegion selectedRegion)
+                if (comboBox_currentRegion.SelectedItem is EnumDisplayItem<GalacticRegion> selectedRegion)
                 {
                     if (Codex != null)
                     {
-                        _selectedRegion = (GalacticRegion)comboBox_currentRegion.SelectedItem;
-                        Codex.CurrentRegion = selectedRegion;
+                        _selectedRegion = selectedRegion.Type;
+                        Codex.CurrentRegion = selectedRegion.Type;
                         DbAccessor.SaveCodex();
 
-                        _logger.Debug($"Current galactic region changed to: {selectedRegion}"); // [+msg]
+                        _logger.Debug($"Current galactic region changed to: {selectedRegion.Description}"); // [+msg]
 
                         ApplyCombinedFilter();
                     }
