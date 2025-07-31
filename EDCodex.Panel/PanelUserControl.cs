@@ -110,16 +110,26 @@ namespace EDCodex.Panel
 
                 foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
                 {
-                    comboBox_discoveryType.Items.Add(entryType);
+                    var item = new DiscoveryTypeItem
+                    {
+                        Type = entryType,
+                        Description = entryType.GetDescription()
+                    };
 
-                    _logger.Debug($"Discovery type added to dropdown: {entryType}");
+                    comboBox_discoveryType.Items.Add(item);
+
+                    _logger.Debug($"Discovery type added to dropdown: {item.Description}");
                 }
 
-                if (comboBox_discoveryType.Items.Contains(defaultType))
-                {
-                    comboBox_discoveryType.SelectedItem = defaultType;
+                var defaultItem = comboBox_discoveryType.Items
+                    .OfType<DiscoveryTypeItem>()
+                    .FirstOrDefault(i => i.Type == defaultType);
 
-                    _logger.Debug($"Default discovery type selected: {defaultType}");
+                if (defaultItem != null)
+                {
+                    comboBox_discoveryType.SelectedItem = defaultItem;
+
+                    _logger.Debug($"Default discovery type selected: {defaultItem.Description}");
                 }
             }
             catch (Exception ex)
@@ -319,11 +329,10 @@ namespace EDCodex.Panel
         {
             try
             {
-                var selected = comboBox_discoveryType.SelectedItem;
-                if (selected is CodexEntryType entryType)
+                if (comboBox_discoveryType.SelectedItem is DiscoveryTypeItem selectedItem)
                 {
-                    _logger.Debug($"Discovery type changed to: {entryType}");
-                    _selectedDiscoveryType = entryType;
+                    _logger.Debug($"Discovery type changed to: {selectedItem}");
+                    _selectedDiscoveryType = selectedItem.Type;
                     ApplyCombinedFilter();
                 }
             }

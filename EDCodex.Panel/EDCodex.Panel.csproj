@@ -51,6 +51,7 @@
     <Compile Include="FilterType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\CodexEntryView.cs" />
+    <Compile Include="Models\DiscoveryTypeItem.cs" />
     <Compile Include="PanelUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
