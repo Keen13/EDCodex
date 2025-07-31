@@ -37,8 +37,6 @@ namespace EDCodex.Panel
 
         #region Properties.
 
-        public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
-
         public IEnumerable<ICodexEntry> AllEntries => GetAllCodexEntries();
 
         public bool SupportTransparency => true;
