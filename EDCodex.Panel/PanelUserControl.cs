@@ -110,10 +110,9 @@ namespace EDCodex.Panel
 
                 foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
                 {
-                    var item = new DiscoveryTypeItem
+                    var item = new EnumDisplayItem<CodexEntryType>
                     {
-                        Type = entryType,
-                        Description = entryType.GetDescription()
+                        Type = entryType
                     };
 
                     comboBox_discoveryType.Items.Add(item);
@@ -122,7 +121,7 @@ namespace EDCodex.Panel
                 }
 
                 var defaultItem = comboBox_discoveryType.Items
-                    .OfType<DiscoveryTypeItem>()
+                    .OfType<EnumDisplayItem<CodexEntryType>>()
                     .FirstOrDefault(i => i.Type == defaultType);
 
                 if (defaultItem != null)
@@ -329,7 +328,7 @@ namespace EDCodex.Panel
         {
             try
             {
-                if (comboBox_discoveryType.SelectedItem is DiscoveryTypeItem selectedItem)
+                if (comboBox_discoveryType.SelectedItem is EnumDisplayItem<CodexEntryType> selectedItem)
                 {
                     _logger.Debug($"Discovery type changed to: {selectedItem}");
                     _selectedDiscoveryType = selectedItem.Type;
