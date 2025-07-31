@@ -473,9 +473,9 @@ namespace EDCodex.Panel
                 case FilterType.All:
                     return true;
                 case FilterType.Existing:
-                    return status == CodexEntryStatus.Exists || status == CodexEntryStatus.Found;
+                    return status == CodexEntryStatus.Found || status == CodexEntryStatus.NotFound;
                 case FilterType.NotFound:
-                    return status == CodexEntryStatus.Exists;
+                    return status == CodexEntryStatus.NotFound;
                 default:
                     return false; // Should not reach here.
             }

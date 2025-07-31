@@ -149,7 +149,7 @@ public class LoadDataToCodexMenu : MenuBase, IMenu
         where  TCodexEntry : ICodexEntry
     {
         return fullList
-            .Where(record => record.StatusByGalacticRegion[CurrentRegion] == CodexEntryStatus.Exists) 
+            .Where(record => record.StatusByGalacticRegion[CurrentRegion] == CodexEntryStatus.NotFound) 
             .Select(record => record.Description)
             .ToList();
     }
