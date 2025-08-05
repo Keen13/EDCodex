@@ -37,8 +37,6 @@ namespace EDCodex.Panel
 
         #region Properties.
 
-        public BindingList<CodexEntryView> ViewEntries { get; } = new BindingList<CodexEntryView>();
-
         public IEnumerable<ICodexEntry> AllEntries => GetAllCodexEntries();
 
         public bool SupportTransparency => true;
@@ -79,17 +77,26 @@ namespace EDCodex.Panel
 
                 foreach (GalacticRegion region in Enum.GetValues(typeof(GalacticRegion)))
                 {
-                    comboBox_currentRegion.Items.Add(region);
+                    var displayItem = new EnumDisplayItem<GalacticRegion>
+                    {
+                        Type = region
+                    };
 
-                    _logger.Debug($"Region added to dropdown: {region} ({(int)region})"); // [+msg]
+                    comboBox_currentRegion.Items.Add(displayItem);
+
+                    _logger.Debug($"Region added to dropdown: {displayItem} ({(int)region})"); // [+msg]
                 }
 
                 // If Codex exists and the current region is valid, select it.
                 if (Codex != null && Enum.IsDefined(typeof(GalacticRegion), Codex.CurrentRegion))
                 {
-                    comboBox_currentRegion.SelectedItem = Codex.CurrentRegion;
+                    var currentRegionItem = comboBox_currentRegion.Items
+                        .OfType<EnumDisplayItem<GalacticRegion>>()
+                        .FirstOrDefault(i => i.Type == Codex.CurrentRegion);
 
-                    _logger.Debug($"Current galactic region selected: {Codex.CurrentRegion} ({(int)Codex.CurrentRegion})"); // [+msg]
+                    comboBox_currentRegion.SelectedItem = currentRegionItem;
+
+                    _logger.Debug($"Current galactic region selected: {currentRegionItem} ({(int)Codex.CurrentRegion})"); // [+msg]
                 }
             }
             catch (Exception ex)
@@ -110,16 +117,25 @@ namespace EDCodex.Panel
 
                 foreach (CodexEntryType entryType in Enum.GetValues(typeof(CodexEntryType)))
                 {
-                    comboBox_discoveryType.Items.Add(entryType);
+                    var displayItem = new EnumDisplayItem<CodexEntryType>
+                    {
+                        Type = entryType
+                    };
 
-                    _logger.Debug($"Discovery type added to dropdown: {entryType}");
+                    comboBox_discoveryType.Items.Add(displayItem);
+
+                    _logger.Debug($"Discovery type added to dropdown: {displayItem}");
                 }
 
-                if (comboBox_discoveryType.Items.Contains(defaultType))
-                {
-                    comboBox_discoveryType.SelectedItem = defaultType;
+                var defaultItem = comboBox_discoveryType.Items
+                    .OfType<EnumDisplayItem<CodexEntryType>>()
+                    .FirstOrDefault(i => i.Type == defaultType);
 
-                    _logger.Debug($"Default discovery type selected: {defaultType}");
+                if (defaultItem != null)
+                {
+                    comboBox_discoveryType.SelectedItem = defaultItem;
+
+                    _logger.Debug($"Default discovery type selected: {defaultItem}");
                 }
             }
             catch (Exception ex)
@@ -158,7 +174,7 @@ namespace EDCodex.Panel
             dataGridView_codexEntries.AutoGenerateColumns = false;
             dataGridView_codexEntries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_codexEntries.AllowUserToAddRows = false;
-            dataGridView_codexEntries.AllowUserToDeleteRows =false;
+            dataGridView_codexEntries.AllowUserToDeleteRows = false;
             dataGridView_codexEntries.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_codexEntries.MultiSelect = false;
 
@@ -181,13 +197,20 @@ namespace EDCodex.Panel
                 ReadOnly = true
             });
 
+            var dataSource = new List<EnumDisplayItem<CodexEntryStatus>>();
+            foreach (CodexEntryStatus status in Enum.GetValues(typeof(CodexEntryStatus)))
+            {
+                dataSource.Add(new EnumDisplayItem<CodexEntryStatus> { Type = status });
+            }
+
             var comboColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = nameof(CodexEntryView.Status),
                 HeaderText = "Status",
-                ValueType = typeof(CodexEntryStatus),
+                DisplayMember = nameof(EnumDisplayItem<CodexEntryStatus>.Description),
+                ValueMember = nameof(EnumDisplayItem<CodexEntryStatus>.Type),
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
-                DataSource = Enum.GetValues(typeof(CodexEntryStatus)),
+                DataSource = dataSource,
             };
 
             dataGridView_codexEntries.Columns.Add(comboColumn);
@@ -275,12 +298,12 @@ namespace EDCodex.Panel
         {
             try
             {
-                if (comboBox_currentRegion.SelectedItem is GalacticRegion selectedRegion)
+                if (comboBox_currentRegion.SelectedItem is EnumDisplayItem<GalacticRegion> selectedRegion)
                 {
                     if (Codex != null)
                     {
-                        _selectedRegion = (GalacticRegion)comboBox_currentRegion.SelectedItem;
-                        Codex.CurrentRegion = selectedRegion;
+                        _selectedRegion = selectedRegion.Type;
+                        Codex.CurrentRegion = selectedRegion.Type;
                         DbAccessor.SaveCodex();
 
                         _logger.Debug($"Current galactic region changed to: {selectedRegion}"); // [+msg]
@@ -319,11 +342,10 @@ namespace EDCodex.Panel
         {
             try
             {
-                var selected = comboBox_discoveryType.SelectedItem;
-                if (selected is CodexEntryType entryType)
+                if (comboBox_discoveryType.SelectedItem is EnumDisplayItem<CodexEntryType> selectedItem)
                 {
-                    _logger.Debug($"Discovery type changed to: {entryType}");
-                    _selectedDiscoveryType = entryType;
+                    _logger.Debug($"Discovery type changed to: {selectedItem}");
+                    _selectedDiscoveryType = selectedItem.Type;
                     ApplyCombinedFilter();
                 }
             }
@@ -349,7 +371,7 @@ namespace EDCodex.Panel
                 var row = dataGridView_codexEntries.Rows[e.RowIndex];
                 if (row.DataBoundItem is CodexEntryView entry)
                 {
-                    _logger.Debug($"Editing entry: '{entry.Description}'");
+                    _logger.Debug($"Editing entry: '{entry}'");
 
                     // Commit edit explicitly before saving
                     dataGridView_codexEntries.CommitEdit(DataGridViewDataErrorContexts.Commit);
@@ -458,7 +480,7 @@ namespace EDCodex.Panel
                 _filteredEntries.Add(new CodexEntryView(entry, Codex));
             }
 
-            _logger.Debug($"{_filteredEntries.Count} {_selectedDiscoveryType} entries loaded for {_selectedRegion} region."); // [+msg]
+            _logger.Debug($"{_filteredEntries.Count} {_selectedDiscoveryType.GetDescription()} entries loaded for {_selectedRegion.GetDescription()} region."); // [+msg]
         }
 
         /// <summary>
@@ -473,9 +495,9 @@ namespace EDCodex.Panel
                 case FilterType.All:
                     return true;
                 case FilterType.Existing:
-                    return status == CodexEntryStatus.Exists || status == CodexEntryStatus.Found;
+                    return status == CodexEntryStatus.Found || status == CodexEntryStatus.NotFound;
                 case FilterType.NotFound:
-                    return status == CodexEntryStatus.Exists;
+                    return status == CodexEntryStatus.NotFound;
                 default:
                     return false; // Should not reach here.
             }

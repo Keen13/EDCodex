@@ -30,7 +30,7 @@ public class SelectCodexEntryMenu<TCodexEntryType> : MenuBase, IMenu
         CheckAndFillEntriesForCurrentRegion();
         
         _notFoundEntries = Codex.GetCodexEntries<TCodexEntryType>()
-            .Where(entry => entry.StatusByGalacticRegion[CurrentRegion] == CodexEntryStatus.Exists);
+            .Where(entry => entry.StatusByGalacticRegion[CurrentRegion] == CodexEntryStatus.NotFound);
 
         var index = 0;
         foreach (var entryToUpdate in _notFoundEntries.OrderBy(entry => entry.Feature))
@@ -56,7 +56,7 @@ public class SelectCodexEntryMenu<TCodexEntryType> : MenuBase, IMenu
             if (!entry.StatusByGalacticRegion.ContainsKey(CurrentRegion))
             {
                 entriesWereUprated = true;
-                entry.StatusByGalacticRegion.Add(CurrentRegion, CodexEntryStatus.Exists);
+                entry.StatusByGalacticRegion.Add(CurrentRegion, CodexEntryStatus.NotFound);
             }
         }
 
