@@ -41,6 +41,10 @@
             this.comboBox_discoveryType = new System.Windows.Forms.ComboBox();
             this.label_discoveryType = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.textBox_sectorName = new System.Windows.Forms.TextBox();
+            this.label_sectorName = new System.Windows.Forms.Label();
+            this.button_getPrefixes = new System.Windows.Forms.Button();
+            this.listBox_prefixes = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -50,6 +54,7 @@
             this.groupBox_discoveryFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,10 +209,55 @@
             // 
             this.splitContainer2.Panel1.Controls.Add(this.dataGridView_codexEntries);
             this.splitContainer2.Panel1.Controls.Add(this.panel_topControls);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.listBox_prefixes);
+            this.splitContainer2.Panel2.Controls.Add(this.button_getPrefixes);
+            this.splitContainer2.Panel2.Controls.Add(this.label_sectorName);
+            this.splitContainer2.Panel2.Controls.Add(this.textBox_sectorName);
             this.splitContainer2.Size = new System.Drawing.Size(793, 450);
             this.splitContainer2.SplitterDistance = 369;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 1;
+            // 
+            // textBox_sectorName
+            // 
+            this.textBox_sectorName.Location = new System.Drawing.Point(6, 22);
+            this.textBox_sectorName.Name = "textBox_sectorName";
+            this.textBox_sectorName.Size = new System.Drawing.Size(115, 20);
+            this.textBox_sectorName.TabIndex = 0;
+            this.textBox_sectorName.TextChanged += new System.EventHandler(this.textBox_sectorName_TextChanged);
+            this.textBox_sectorName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_sectorName_KeyDown);
+            // 
+            // label_sectorName
+            // 
+            this.label_sectorName.AutoSize = true;
+            this.label_sectorName.Location = new System.Drawing.Point(3, 6);
+            this.label_sectorName.Name = "label_sectorName";
+            this.label_sectorName.Size = new System.Drawing.Size(67, 13);
+            this.label_sectorName.TabIndex = 1;
+            this.label_sectorName.Text = "Sector name";
+            // 
+            // button_getPrefixes
+            // 
+            this.button_getPrefixes.Enabled = false;
+            this.button_getPrefixes.Location = new System.Drawing.Point(127, 20);
+            this.button_getPrefixes.Name = "button_getPrefixes";
+            this.button_getPrefixes.Size = new System.Drawing.Size(152, 23);
+            this.button_getPrefixes.TabIndex = 2;
+            this.button_getPrefixes.Text = "Get all possible prefixes ";
+            this.button_getPrefixes.UseVisualStyleBackColor = true;
+            this.button_getPrefixes.Click += new System.EventHandler(this.button_getPrefixes_Click);
+            // 
+            // listBox_prefixes
+            // 
+            this.listBox_prefixes.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBox_prefixes.FormattingEnabled = true;
+            this.listBox_prefixes.Location = new System.Drawing.Point(0, 56);
+            this.listBox_prefixes.Name = "listBox_prefixes";
+            this.listBox_prefixes.Size = new System.Drawing.Size(419, 394);
+            this.listBox_prefixes.TabIndex = 3;
             // 
             // PanelUserControl
             // 
@@ -227,6 +277,8 @@
             this.groupBox_discoveryFilters.ResumeLayout(false);
             this.groupBox_discoveryFilters.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -248,5 +300,9 @@
         private System.Windows.Forms.RadioButton radioButton_filterExisting;
         private System.Windows.Forms.RadioButton radioButton_filterAll;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TextBox textBox_sectorName;
+        private System.Windows.Forms.Label label_sectorName;
+        private System.Windows.Forms.Button button_getPrefixes;
+        private System.Windows.Forms.ListBox listBox_prefixes;
     }
 }

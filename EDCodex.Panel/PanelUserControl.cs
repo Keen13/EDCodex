@@ -21,7 +21,7 @@ namespace EDCodex.Panel
         private EDDCallBacks DLLCallBack;
         private readonly Logger _logger;
         private BindingList<CodexEntryView> _filteredEntries = new BindingList<CodexEntryView>();
-
+        private BindingList<string> _prefixes = new BindingList<string>();
         private FilterType _currentFilter = FilterType.All;
         private GalacticRegion _selectedRegion = GalacticRegion.TheVoid;
         private CodexEntryType _selectedDiscoveryType = CodexEntryType.Star; // Default to Star
@@ -62,6 +62,8 @@ namespace EDCodex.Panel
             InitializeRadioButtonFilters();
             PopulateGalacticRegionsCombobox();
             PopulateDiscoveryTypesCombobox();
+
+            listBox_prefixes.DataSource = _prefixes;
 
             _logger.LogMessage("Welcome to EDCodex custom panel.");
         }
@@ -400,6 +402,26 @@ namespace EDCodex.Panel
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 _logger.Debug($"Error in DataGridView_codexEntries_CellValueChanged:\r\n{ex.Message}");
+            }
+        }
+
+        private void textBox_sectorName_TextChanged(object sender, EventArgs e)
+        {
+            // Enable button only if textbox has text
+            button_getPrefixes.Enabled = !string.IsNullOrWhiteSpace(textBox_sectorName.Text);
+        }
+
+        private void button_getPrefixes_Click(object sender, EventArgs e)
+        {
+            _prefixes.Add(textBox_sectorName.Text.Trim());
+        }
+
+        private void textBox_sectorName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_getPrefixes.PerformClick();
+                e.Handled = true;
             }
         }
 
