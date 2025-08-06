@@ -60,7 +60,7 @@
             this.textBox_logMsgs.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_logMsgs.Name = "textBox_logMsgs";
             this.textBox_logMsgs.ReadOnly = true;
-            this.textBox_logMsgs.Size = new System.Drawing.Size(793, 217);
+            this.textBox_logMsgs.Size = new System.Drawing.Size(793, 120);
             this.textBox_logMsgs.TabIndex = 0;
             this.textBox_logMsgs.Text = "";
             // 
@@ -101,7 +101,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBox_logMsgs);
             this.splitContainer1.Size = new System.Drawing.Size(793, 573);
-            this.splitContainer1.SplitterDistance = 353;
+            this.splitContainer1.SplitterDistance = 450;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -111,7 +111,7 @@
             this.dataGridView_codexEntries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_codexEntries.Location = new System.Drawing.Point(0, 104);
             this.dataGridView_codexEntries.Name = "dataGridView_codexEntries";
-            this.dataGridView_codexEntries.Size = new System.Drawing.Size(369, 249);
+            this.dataGridView_codexEntries.Size = new System.Drawing.Size(369, 346);
             this.dataGridView_codexEntries.TabIndex = 0;
             // 
             // panel_topControls
@@ -204,7 +204,7 @@
             // 
             this.splitContainer2.Panel1.Controls.Add(this.dataGridView_codexEntries);
             this.splitContainer2.Panel1.Controls.Add(this.panel_topControls);
-            this.splitContainer2.Size = new System.Drawing.Size(793, 353);
+            this.splitContainer2.Size = new System.Drawing.Size(793, 450);
             this.splitContainer2.SplitterDistance = 369;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 1;
