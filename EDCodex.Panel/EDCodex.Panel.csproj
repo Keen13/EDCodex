@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpDLLPanelEDDClass.cs" />
+    <Compile Include="Enums\MassIndex.cs" />
     <Compile Include="Extentions\CodexEntryExtensions.cs" />
     <Compile Include="FilterType.cs" />
     <Compile Include="Logger.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="PanelUserControl.Designer.cs">
       <DependentUpon>PanelUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CubeService.cs" />
+    <Compile Include="PrefixService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

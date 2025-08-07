@@ -1,6 +1,7 @@
 ﻿using EDCodex.Data;
 using EDCodex.Data.Enums;
 using EDCodex.Data.Models;
+using EDCodex.Panel.Enums;
 using EDCodex.Panel.Extentions;
 using EDCodex.Panel.Models;
 using System;
@@ -21,7 +22,6 @@ namespace EDCodex.Panel
         private EDDCallBacks DLLCallBack;
         private readonly Logger _logger;
         private BindingList<CodexEntryView> _filteredEntries = new BindingList<CodexEntryView>();
-        private BindingList<string> _prefixes = new BindingList<string>();
         private FilterType _currentFilter = FilterType.All;
         private GalacticRegion _selectedRegion = GalacticRegion.TheVoid;
         private CodexEntryType _selectedDiscoveryType = CodexEntryType.Star; // Default to Star
@@ -63,7 +63,7 @@ namespace EDCodex.Panel
             PopulateGalacticRegionsCombobox();
             PopulateDiscoveryTypesCombobox();
 
-            listBox_prefixes.DataSource = _prefixes;
+            listBox_prefixes.DataSource = new List<string>();
 
             _logger.LogMessage("Welcome to EDCodex custom panel.");
         }
@@ -413,7 +413,16 @@ namespace EDCodex.Panel
 
         private void button_getPrefixes_Click(object sender, EventArgs e)
         {
-            _prefixes.Add(textBox_sectorName.Text.Trim());
+            var userInputSectorName = textBox_sectorName.Text.Trim();
+            var massIndices = new List<MassIndex>()
+            {
+                // Hardcoded for now.
+                MassIndex.G,
+                MassIndex.H
+            };
+
+            // List used; BindingList not needed for static data.
+            listBox_prefixes.DataSource = PrefixService.GetAll(userInputSectorName, massIndices);
         }
 
         private void textBox_sectorName_KeyDown(object sender, KeyEventArgs e)
