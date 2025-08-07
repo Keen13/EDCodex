@@ -20,24 +20,22 @@ namespace EDCodex.Panel
         {
             var prefixes = new List<string>();
 
-            if (massIndices == null || !massIndices.Any())
+            if (massIndices != null && massIndices.Count > 0)
             {
-                return prefixes;
-            }
+                var massIndicesDescending = massIndices.OrderByDescending(mi => mi);
 
-            var massIndicesDescending = massIndices.OrderByDescending(mi => mi);
-
-            foreach (var massIndex in massIndicesDescending)
-            {
-                var cubes = CubeService.GetForMassIndex(massIndex);
-                if (cubes == null || !cubes.Any())
+                foreach (var massIndex in massIndicesDescending)
                 {
-                    continue;
-                }
+                    var cubes = CubeService.GetForMassIndex(massIndex);
+                    if (cubes == null || cubes.Count == 0)
+                    {
+                        continue;
+                    }
 
-                foreach (var cube in cubes)
-                {
-                    prefixes.Add($"{sectorName} {cube} {massIndex}");
+                    foreach (var cube in cubes)
+                    {
+                        prefixes.Add($"{sectorName} {cube} {massIndex}");
+                    }
                 }
             }
 
