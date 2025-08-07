@@ -258,6 +258,7 @@
             this.listBox_prefixes.Name = "listBox_prefixes";
             this.listBox_prefixes.Size = new System.Drawing.Size(419, 394);
             this.listBox_prefixes.TabIndex = 3;
+            this.listBox_prefixes.SelectedIndexChanged += new System.EventHandler(this.listBox_prefixes_SelectedIndexChanged);
             // 
             // PanelUserControl
             // 

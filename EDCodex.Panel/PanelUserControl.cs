@@ -434,6 +434,24 @@ namespace EDCodex.Panel
             }
         }
 
+        private void listBox_prefixes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_prefixes.SelectedItem is string selectedPrefix 
+                && !string.IsNullOrWhiteSpace(selectedPrefix))
+            {
+                try
+                {
+                    Clipboard.SetText(selectedPrefix);
+                    _logger.Debug($"Clipboard set to selected prefix: {selectedPrefix}");
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.Debug($"Failed to copy prefix to clipboard: {ex.Message}");
+                }
+            }
+        }
+
         #endregion
 
         /// <summary>
