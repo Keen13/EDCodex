@@ -423,6 +423,8 @@ namespace EDCodex.Panel
 
             // List used; BindingList not needed for static data.
             listBox_prefixes.DataSource = PrefixService.GetAll(userInputSectorName, massIndices);
+
+            listBox_prefixes.Focus(); // Focus the listbox.
         }
 
         private void textBox_sectorName_KeyDown(object sender, KeyEventArgs e)
