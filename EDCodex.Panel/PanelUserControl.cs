@@ -442,7 +442,7 @@ namespace EDCodex.Panel
                 try
                 {
                     Clipboard.SetText(selectedPrefix);
-                    _logger.Debug($"Clipboard set to selected prefix: {selectedPrefix}");
+                    _logger.LogMessage($"Clipboard set to selected prefix: {selectedPrefix}");
 
                 }
                 catch (Exception ex)
