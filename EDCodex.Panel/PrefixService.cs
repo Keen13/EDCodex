@@ -20,14 +20,14 @@ namespace EDCodex.Panel
         {
             var prefixes = new List<string>();
 
-            if (massIndices != null && massIndices.Count > 0)
+            if (massIndices?.Count > 0)
             {
                 var massIndicesDescending = massIndices.OrderByDescending(mi => mi);
 
                 foreach (var massIndex in massIndicesDescending)
                 {
                     var cubes = CubeService.GetForMassIndex(massIndex);
-                    if (cubes == null || cubes.Count == 0)
+                    if (cubes?.Count == 0)
                     {
                         continue;
                     }
