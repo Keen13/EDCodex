@@ -553,5 +553,10 @@ namespace EDCodex.Panel
                     return false; // Should not reach here.
             }
         }
+
+        private void button_nuke_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
