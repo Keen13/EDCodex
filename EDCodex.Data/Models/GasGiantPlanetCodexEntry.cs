@@ -5,7 +5,7 @@ namespace EDCodex.Data.Models;
 public class GasGiantPlanetCodexEntry : CodexEntry<GasGiantPlanetType>
 {
     // Codex entries without additional requirements should be initialized as NotExists
-    protected override CodexEntryStatus DefaultEntryStatus => CodexEntryStatus.NotExists;
+    protected override CodexEntryStatus DefaultEntryStatus => CodexEntryStatus.Absent;
 
     public GasGiantPlanetCodexEntry() : base(CodexEntryType.GasGiantPlanet)
     {

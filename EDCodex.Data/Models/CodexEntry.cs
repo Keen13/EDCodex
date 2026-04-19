@@ -44,7 +44,7 @@ public class CodexEntry<T> : ICodexEntry
 
     public void MarkAsNotExists(GalacticRegion galacticRegion)
     {
-        StatusByGalacticRegion[galacticRegion] = CodexEntryStatus.NotExists;
+        StatusByGalacticRegion[galacticRegion] = CodexEntryStatus.Absent;
     }
 
     public void MarkAsExists(GalacticRegion galacticRegion)
