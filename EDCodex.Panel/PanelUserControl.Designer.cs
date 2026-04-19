@@ -45,7 +45,6 @@
             this.label_sectorName = new System.Windows.Forms.Label();
             this.listBox_prefixes = new System.Windows.Forms.ListBox();
             this.button_getPrefixes = new System.Windows.Forms.Button();
-            this.button_nuke = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -121,7 +120,6 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.button_nuke);
             this.splitContainer2.Panel2.Controls.Add(this.textBox_sectorName);
             this.splitContainer2.Panel2.Controls.Add(this.label_sectorName);
             this.splitContainer2.Panel2.Controls.Add(this.listBox_prefixes);
@@ -254,7 +252,7 @@
             this.listBox_prefixes.Location = new System.Drawing.Point(0, 227);
             this.listBox_prefixes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listBox_prefixes.Name = "listBox_prefixes";
-            this.listBox_prefixes.Size = new System.Drawing.Size(625, 464);
+            this.listBox_prefixes.Size = new System.Drawing.Size(621, 464);
             this.listBox_prefixes.TabIndex = 3;
             this.listBox_prefixes.SelectedIndexChanged += new System.EventHandler(this.listBox_prefixes_SelectedIndexChanged);
             // 
@@ -269,17 +267,6 @@
             this.button_getPrefixes.Text = "Get all possible prefixes ";
             this.button_getPrefixes.UseVisualStyleBackColor = true;
             this.button_getPrefixes.Click += new System.EventHandler(this.button_getPrefixes_Click);
-            // 
-            // button_nuke
-            // 
-            this.button_nuke.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_nuke.Location = new System.Drawing.Point(4, 9);
-            this.button_nuke.Name = "button_nuke";
-            this.button_nuke.Size = new System.Drawing.Size(253, 131);
-            this.button_nuke.TabIndex = 4;
-            this.button_nuke.Text = "NUKE!";
-            this.button_nuke.UseVisualStyleBackColor = true;
-            this.button_nuke.Click += new System.EventHandler(this.button_nuke_Click);
             // 
             // PanelUserControl
             // 
@@ -325,6 +312,5 @@
         private System.Windows.Forms.TextBox textBox_sectorName;
         private System.Windows.Forms.Label label_sectorName;
         private System.Windows.Forms.Button button_getPrefixes;
-        private System.Windows.Forms.Button button_nuke;
     }
 }
