@@ -6,7 +6,7 @@ public class CodexEntry<T> : ICodexEntry
     where T : Enum
 {
     // Codex entries with additional requirements should be initialized as Undefined
-    protected virtual CodexEntryStatus DefaultEntryStatus => CodexEntryStatus.Undefined;
+    protected virtual CodexEntryStatus DefaultEntryStatus => CodexEntryStatus.NotFound;
     
     public CodexEntry(CodexEntryType type)
     {

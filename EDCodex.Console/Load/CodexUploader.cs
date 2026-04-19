@@ -322,7 +322,7 @@ public static class CodexUploader
         {
             if (!codexEntry.StatusByGalacticRegion.ContainsKey(galacticRegion))
             {
-                codexEntry.StatusByGalacticRegion.Add(galacticRegion, CodexEntryStatus.Undefined);
+                codexEntry.StatusByGalacticRegion.Add(galacticRegion, CodexEntryStatus.NotFound);
             }
         }
     }   
