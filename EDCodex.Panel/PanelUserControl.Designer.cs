@@ -139,6 +139,7 @@
             this.dataGridView_codexEntries.RowHeadersWidth = 62;
             this.dataGridView_codexEntries.Size = new System.Drawing.Size(553, 531);
             this.dataGridView_codexEntries.TabIndex = 0;
+            this.dataGridView_codexEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_codexEntries_KeyDown);
             // 
             // panel_topControls
             // 

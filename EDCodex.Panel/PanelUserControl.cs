@@ -553,5 +553,10 @@ namespace EDCodex.Panel
                     return false; // Should not reach here. 
             }
         }
+
+        private void dataGridView_codexEntries_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }
