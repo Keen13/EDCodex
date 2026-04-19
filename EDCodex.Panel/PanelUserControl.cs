@@ -553,30 +553,5 @@ namespace EDCodex.Panel
                     return false; // Should not reach here. 
             }
         }
-
-        private void button_nuke_Click(object sender, EventArgs e)
-        {
-            var undefinedEntries = 0;
-
-            foreach (var entry in AllEntries)
-            {
-                var dict = entry.StatusByGalacticRegion;
-
-                foreach (var region in dict.Keys.ToList())
-                {
-                    if (dict[region] == CodexEntryStatus.Undefined)
-                    {
-                        dict[region] = CodexEntryStatus.NotFound;
-                        undefinedEntries++;
-                    }
-                }
-            }
-
-            _logger.LogMessage(
-                $"Nuke complete. {undefinedEntries} undefined entries set to Not Found.");
-
-            DbAccessor.SaveCodex();
-            ApplyCombinedFilter();
-        }
     }
 }
