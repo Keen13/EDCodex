@@ -19,7 +19,7 @@ namespace EDCodex.Panel.Extentions
 
             return entry.StatusByGalacticRegion.TryGetValue(region, out var status)
                 ? status
-                : CodexEntryStatus.NotExists;
+                : CodexEntryStatus.Undefined;
         }
     }
 }
