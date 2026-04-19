@@ -17,7 +17,7 @@ public class UpdateCodexEntryMenu<TCodexEntryType> : MenuBase, IMenu
     protected override void InitializeOptions()
     {
         AddOption("1", "Mark as Found", MarkAsFoundCommand);
-        AddOption("2", "Mark as NotExists", MarkAsNotExistsCommand);
+        AddOption("2", "Mark as Absent", MarkAsAbsentCommand);
         AddOption("3", "Show Requirements", ShowRequirementsCommand);
     }
 
@@ -38,11 +38,11 @@ public class UpdateCodexEntryMenu<TCodexEntryType> : MenuBase, IMenu
         return false; // Automatically returns from this menu to the previous one
     }
     
-    private bool MarkAsNotExistsCommand()
+    private bool MarkAsAbsentCommand()
     {
-        _entryToUpdate.MarkAsNotExists(CurrentRegion);
+        _entryToUpdate.MarkAsAbsent(CurrentRegion);
         DbAccessor.SaveCodex();
-        Console.WriteLine($"{_entryToUpdate.Description} is NotExists now");
+        Console.WriteLine($"{_entryToUpdate.Description} is Absent now");
         Console.ReadLine();
         return false; // Automatically returns from this menu to the previous one
     }

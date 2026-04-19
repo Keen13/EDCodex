@@ -58,7 +58,7 @@ public class GeoFeaturesData
             };
     }
 
-    // List only existing Terrestrials types for a region. Other will be marked as NotExists by default
+    // List only existing Terrestrials types for a region. Other will be marked as Absent by default
     // Use Data18 as template
     public static List<GeoCodexEntry> Data18 =>
         new List<GeoCodexEntry>

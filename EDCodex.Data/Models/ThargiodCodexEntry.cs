@@ -4,7 +4,7 @@ namespace EDCodex.Data.Models;
 
 public class ThargiodCodexEntry : CodexEntry<ThargoidObject>
 {
-    // Codex entries without additional requirements should be initialized as NotExists
+    // Codex entries without additional requirements should be initialized as Absent
     protected override CodexEntryStatus DefaultEntryStatus => CodexEntryStatus.Absent;
 
     public ThargiodCodexEntry() : base(CodexEntryType.Thargiod)
