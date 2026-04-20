@@ -572,6 +572,9 @@ namespace EDCodex.Panel
                         {
                             if (entry.Status != CodexEntryStatus.Absent)
                             {
+                                var oldIndex = dataGridView_codexEntries.CurrentCell.RowIndex;
+                                var firstDisplayed = dataGridView_codexEntries.FirstDisplayedScrollingRowIndex;
+
                                 var oldValue = entry.Status;
                                 entry.Status = CodexEntryStatus.Absent;
 
@@ -581,7 +584,36 @@ namespace EDCodex.Panel
 
                                 DbAccessor.SaveCodex();
                                 _logger.Debug("Codex saved.");
-                                BeginInvoke(new MethodInvoker(() => ApplyCombinedFilter()));
+                                BeginInvoke(new MethodInvoker(() =>
+                                {
+                                    ApplyCombinedFilter();
+
+                                    if (dataGridView_codexEntries.Rows.Count == 0)
+                                    {
+                                        return;
+                                    }
+
+                                    var newIndex = oldIndex;
+
+                                    if (newIndex >= dataGridView_codexEntries.Rows.Count)
+                                    {
+                                        newIndex = dataGridView_codexEntries.Rows.Count - 1;
+                                    }
+
+                                    if (newIndex < 0)
+                                    {
+                                        newIndex = 0;
+                                    }
+
+                                    dataGridView_codexEntries.CurrentCell =
+                                        dataGridView_codexEntries.Rows[newIndex].Cells[0];
+
+                                    if (firstDisplayed >= 0 &&
+                                        firstDisplayed < dataGridView_codexEntries.Rows.Count)
+                                    {
+                                        dataGridView_codexEntries.FirstDisplayedScrollingRowIndex = firstDisplayed;
+                                    }
+                                }));
                             }
                         }
                     }
@@ -592,6 +624,8 @@ namespace EDCodex.Panel
                 default:
                     break;
             }            
-        }        
+        }     
+        
+
     }
 }
