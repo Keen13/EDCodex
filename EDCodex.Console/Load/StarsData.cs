@@ -58,7 +58,7 @@ public static class StarsData
             };
     }
 
-    // List only existing star types for a region. Other will be marked as NotExists by default
+    // List only existing star types for a region. Other will be marked as Absent by default
     // Use Data18 as template
     public static List<StarCodexEntry> Data01 =>
         new List<StarCodexEntry>

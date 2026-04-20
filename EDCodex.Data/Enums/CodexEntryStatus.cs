@@ -2,7 +2,7 @@
 
 public enum CodexEntryStatus
 {
-    NotExists = 1,
+    Absent = 1,
     
     NotFound = 2,
     
