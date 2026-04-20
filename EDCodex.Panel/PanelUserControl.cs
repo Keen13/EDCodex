@@ -566,16 +566,16 @@ namespace EDCodex.Panel
                 case Keys.A:
                     _logger.Debug("Hotkey A triggered.");
 
-                    HandleHotkey(e, CodexEntryStatus.Absent);
+                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.Absent);
                     break;
                 case Keys.F:
                     _logger.Debug("Hotkey F triggered.");
-                    HandleHotkey(e, CodexEntryStatus.Found);
+                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.Found);
                     break;
 
                 case Keys.N:
                     _logger.Debug("Hotkey N triggered.");
-                    HandleHotkey(e, CodexEntryStatus.NotFound);
+                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.NotFound);
                     break;
 
                 default:
@@ -583,7 +583,7 @@ namespace EDCodex.Panel
             }            
         }
 
-        private void HandleHotkey(KeyEventArgs e, CodexEntryStatus newStatus)
+        private void SetSelectedEntryStatusFromHotkey(KeyEventArgs e, CodexEntryStatus newStatus)
         {
             var grid = dataGridView_codexEntries;
             var currentCell = grid.CurrentCell;
