@@ -568,6 +568,15 @@ namespace EDCodex.Panel
 
                     HandleHotkey(e, CodexEntryStatus.Absent);
                     break;
+                case Keys.F:
+                    _logger.Debug("Hotkey F triggered.");
+                    HandleHotkey(e, CodexEntryStatus.Found);
+                    break;
+
+                case Keys.N:
+                    _logger.Debug("Hotkey N triggered.");
+                    HandleHotkey(e, CodexEntryStatus.NotFound);
+                    break;
 
                 default:
                     break;
