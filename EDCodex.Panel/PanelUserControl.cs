@@ -566,66 +566,81 @@ namespace EDCodex.Panel
                 case Keys.A:
                     _logger.Debug("Hotkey A triggered.");
 
-                    if (dataGridView_codexEntries.CurrentCell?.RowIndex is int idx && idx >= 0)
-                    {
-                        if (dataGridView_codexEntries.Rows[idx].DataBoundItem is CodexEntryView entry)
-                        {
-                            if (entry.Status != CodexEntryStatus.Absent)
-                            {
-                                var oldIndex = dataGridView_codexEntries.CurrentCell.RowIndex;
-                                var firstDisplayed = dataGridView_codexEntries.FirstDisplayedScrollingRowIndex;
-
-                                var oldValue = entry.Status;
-                                entry.Status = CodexEntryStatus.Absent;
-
-                                dataGridView_codexEntries.InvalidateRow(idx);
-
-                                _logger.Debug($"{entry.Description}: {oldValue} —> {entry.Status}");
-
-                                DbAccessor.SaveCodex();
-                                _logger.Debug("Codex saved.");
-                                BeginInvoke(new MethodInvoker(() =>
-                                {
-                                    ApplyCombinedFilter();
-
-                                    if (dataGridView_codexEntries.Rows.Count == 0)
-                                    {
-                                        return;
-                                    }
-
-                                    var newIndex = oldIndex;
-
-                                    if (newIndex >= dataGridView_codexEntries.Rows.Count)
-                                    {
-                                        newIndex = dataGridView_codexEntries.Rows.Count - 1;
-                                    }
-
-                                    if (newIndex < 0)
-                                    {
-                                        newIndex = 0;
-                                    }
-
-                                    dataGridView_codexEntries.CurrentCell =
-                                        dataGridView_codexEntries.Rows[newIndex].Cells[0];
-
-                                    if (firstDisplayed >= 0 &&
-                                        firstDisplayed < dataGridView_codexEntries.Rows.Count)
-                                    {
-                                        dataGridView_codexEntries.FirstDisplayedScrollingRowIndex = firstDisplayed;
-                                    }
-                                }));
-                            }
-                        }
-                    }
-
-                    e.Handled = true;
+                    HandleHotkey(e, CodexEntryStatus.Absent);
                     break;
 
                 default:
                     break;
             }            
-        }     
-        
+        }
 
+        private void HandleHotkey(KeyEventArgs e, CodexEntryStatus newStatus)
+        {
+            var grid = dataGridView_codexEntries;
+            var currentCell = grid.CurrentCell;
+
+            if (currentCell == null || currentCell.RowIndex < 0)
+            {
+                return;
+            }
+
+            var idx = currentCell.RowIndex;
+
+            var entry = grid.Rows[idx].DataBoundItem as CodexEntryView;
+            if (entry == null)
+            {
+                return;
+            }
+
+            if (entry.Status == newStatus)
+            {
+                return;
+            }
+
+            // Saving the position of the row before the filter is applied.
+            var oldIndex = idx;
+
+            var firstDisplayed = grid.FirstDisplayedScrollingRowIndex;
+            var oldValue = entry.Status;
+
+            entry.Status = newStatus;
+
+            _logger.LogMessage($"{entry.Description}: {oldValue} —> {entry.Status}");
+
+            DbAccessor.SaveCodex();
+            BeginInvoke(new MethodInvoker(() =>
+            {
+                ApplyCombinedFilter();
+
+                if (grid.Rows.Count == 0)
+                {
+                    return;
+                }
+
+                var newIndex = oldIndex;
+
+                if (newIndex >= grid.Rows.Count)
+                {
+                    newIndex = grid.Rows.Count - 1;
+                }
+
+                if (newIndex < 0)
+                {
+                    newIndex = 0;
+                }
+
+                if (firstDisplayed >= 0 &&
+                    firstDisplayed < grid.Rows.Count)
+                {
+                    grid.FirstDisplayedScrollingRowIndex = firstDisplayed;
+                }
+
+                grid.CurrentCell =
+                    grid.Rows[newIndex].Cells[0];
+                
+            }));
+
+            e.Handled = true;
+        }
     }
 }
