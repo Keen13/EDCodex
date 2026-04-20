@@ -424,6 +424,32 @@ namespace EDCodex.Panel
             }
         }
 
+        private void dataGridView_codexEntries_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (dataGridView_codexEntries.CurrentCell is null)
+            {
+                return;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Absent);
+                    e.Handled = true;
+                    break;
+
+                case Keys.F:
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Found);
+                    e.Handled = true;
+                    break;
+
+                case Keys.N:
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.NotFound);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -590,39 +616,6 @@ namespace EDCodex.Panel
             DbAccessor.SaveCodex();
 
             return true;
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            var grid = dataGridView_codexEntries;
-
-            if (grid.CurrentCell is null)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            // Hotkeys by key only (ignores modifiers)
-            switch (keyData & Keys.KeyCode)
-            {
-                case Keys.A:
-                    _logger.Debug("Hotkey A triggered.");
-                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Absent);
-
-                    return true;
-                case Keys.F:
-                    _logger.Debug("Hotkey F triggered.");
-                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Found);
-
-                    return true;
-
-                case Keys.N:
-                    _logger.Debug("Hotkey N triggered.");
-                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.NotFound);
-
-                    return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
+        }        
     }
 }
