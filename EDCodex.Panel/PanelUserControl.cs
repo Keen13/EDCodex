@@ -360,48 +360,18 @@ namespace EDCodex.Panel
 
         private void DataGridView_codexEntries_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            try
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
-                _logger.Debug($"CellValueChanged triggered: RowIndex={e.RowIndex}, ColumnIndex={e.ColumnIndex}");
-
-                if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                {
-                    _logger.Debug("Invalid row or column index in DataGridView.");
-                    return;
-                }
-
-                var row = dataGridView_codexEntries.Rows[e.RowIndex];
-                if (row.DataBoundItem is CodexEntryView entry)
-                {
-                    _logger.Debug($"Editing entry: '{entry}'");
-
-                    // Commit edit explicitly before saving
-                    dataGridView_codexEntries.CommitEdit(DataGridViewDataErrorContexts.Commit);
-                    dataGridView_codexEntries.EndEdit();
-
-                    DbAccessor.SaveCodex();
-                    _logger.Debug("Codex saved.");
-
-                    // Delay ApplyCombinedFilter to avoid race with internal updates
-                    BeginInvoke(new MethodInvoker(() =>
-                    {
-                        _logger.Debug("Reapplying combined filter after value change.");
-                        ApplyCombinedFilter();
-                    }));
-                }
-                else
-                {
-                    _logger.Debug("Row DataBoundItem is not a CodexEntryView — unexpected binding.");
-                }
+                return;
             }
-            catch (Exception ex)
+            
+            dataGridView_codexEntries.EndEdit();
+
+            if (dataGridView_codexEntries.Rows[e.RowIndex].DataBoundItem is CodexEntryView entry)
             {
-                MessageBox.Show(
-                    $"An error occurred while updating the codex entry. Please try again.\n{ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                _logger.Debug($"Error in DataGridView_codexEntries_CellValueChanged:\r\n{ex.Message}");
+                // Since the UI is already updated via Binding, just save and refresh filters.
+                DbAccessor.SaveCodex();
+                RefreshGridState();
             }
         }
 
@@ -554,41 +524,34 @@ namespace EDCodex.Panel
             }
         }
 
+        /// <summary>
+        /// Updates the selected codex entry status using keyboard shortcuts.
+        /// </summary>
         private void SetSelectedEntryStatusFromHotkey(CodexEntryStatus newStatus)
         {
+            var entry = dataGridView_codexEntries.CurrentCell?.OwningRow?.DataBoundItem as CodexEntryView;
+
+            if (TryUpdateEntryStatus(entry, newStatus))
+            {
+                RefreshGridState();
+            }
+        }
+
+        /// <summary>
+        /// Reapplies filters and restores grid selection and scroll position.
+        /// </summary>
+        private void RefreshGridState()
+        {
             var grid = dataGridView_codexEntries;
-            var currentCell = grid.CurrentCell;
 
-            if (currentCell is null)
+            if (grid.CurrentCell is null)
             {
                 return;
             }
 
-            var idx = currentCell.RowIndex;
-
-            //var entry = grid.Rows[idx].DataBoundItem as CodexEntryView;
-            var entry = currentCell.OwningRow?.DataBoundItem as CodexEntryView;
-            if (entry is null)
-            {
-                return;
-            }
-
-            if (entry.Status == newStatus)
-            {
-                return;
-            }
-
-            // Saving the position of the row before the filter is applied.
-            var oldIndex = idx;
-
+            var oldRowIndex = grid.CurrentCell.RowIndex;
             var firstDisplayed = grid.FirstDisplayedScrollingRowIndex;
-            var oldValue = entry.Status;
 
-            entry.Status = newStatus;
-
-            _logger.LogMessage($"{entry.Description}: {oldValue} —> {entry.Status}");
-
-            DbAccessor.SaveCodex();
             BeginInvoke(new MethodInvoker(() =>
             {
                 ApplyCombinedFilter();
@@ -598,28 +561,35 @@ namespace EDCodex.Panel
                     return;
                 }
 
-                var newIndex = oldIndex;
+                var newIndex = Math.Max(0, Math.Min(oldRowIndex, grid.Rows.Count - 1));
 
-                if (newIndex >= grid.Rows.Count)
-                {
-                    newIndex = grid.Rows.Count - 1;
-                }
-
-                if (newIndex < 0)
-                {
-                    newIndex = 0;
-                }
-
-                if (firstDisplayed >= 0 &&
-                    firstDisplayed < grid.Rows.Count)
+                if (firstDisplayed >= 0 && firstDisplayed < grid.Rows.Count)
                 {
                     grid.FirstDisplayedScrollingRowIndex = firstDisplayed;
                 }
 
-                grid.CurrentCell =
-                    grid.Rows[newIndex].Cells[0];
-                
+                grid.CurrentCell = grid.Rows[newIndex].Cells[0];
             }));
+        }
+
+        /// <summary>
+        /// Attempts to update a codex entry status and persist changes.
+        /// </summary>
+        private bool TryUpdateEntryStatus(CodexEntryView entry, CodexEntryStatus newStatus)
+        {
+            if (entry is null || entry.Status == newStatus)
+            {
+                return false;
+            }
+
+            var oldStatus = entry.Status;
+            entry.Status = newStatus;
+
+            _logger.LogMessage($"{entry.Description}: {oldStatus} —> {entry.Status}");
+
+            DbAccessor.SaveCodex();
+
+            return true;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -636,17 +606,19 @@ namespace EDCodex.Panel
             {
                 case Keys.A:
                     _logger.Debug("Hotkey A triggered.");
-
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Absent);
+
                     return true;
                 case Keys.F:
                     _logger.Debug("Hotkey F triggered.");
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Found);
+
                     return true;
 
                 case Keys.N:
                     _logger.Debug("Hotkey N triggered.");
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.NotFound);
+
                     return true;
             }
 
