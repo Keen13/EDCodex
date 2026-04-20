@@ -428,22 +428,26 @@ namespace EDCodex.Panel
         {
             if (dataGridView_codexEntries.CurrentCell is null)
             {
+                _logger.Debug("KeyDown ignored: no current cell.");
                 return;
             }
 
             switch (e.KeyCode)
             {
                 case Keys.A:
+                    _logger.Debug("Hotkey A triggered.");
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Absent);
                     e.Handled = true;
                     break;
 
                 case Keys.F:
+                    _logger.Debug("Hotkey F triggered.");
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Found);
                     e.Handled = true;
                     break;
 
                 case Keys.N:
+                    _logger.Debug("Hotkey N triggered.");
                     SetSelectedEntryStatusFromHotkey(CodexEntryStatus.NotFound);
                     e.Handled = true;
                     break;
@@ -556,10 +560,23 @@ namespace EDCodex.Panel
         private void SetSelectedEntryStatusFromHotkey(CodexEntryStatus newStatus)
         {
             var entry = dataGridView_codexEntries.CurrentCell?.OwningRow?.DataBoundItem as CodexEntryView;
+            
+            if (entry is null)
+            {
+                _logger.Debug("Hotkey ignored: no selected entry.");
+                return;
+            }
+
+            _logger.Debug($"Attempting status change to {newStatus} for {entry.Description}");
 
             if (TryUpdateEntryStatus(entry, newStatus))
             {
+                _logger.Debug("Status updated successfully. Refreshing grid.");
                 RefreshGridState();
+            }
+            else
+            {
+                _logger.Debug("Status update skipped (no change).");
             }
         }
 
@@ -572,6 +589,7 @@ namespace EDCodex.Panel
 
             if (grid.CurrentCell is null)
             {
+                _logger.Debug("RefreshGridState aborted: no current cell.");
                 return;
             }
 
@@ -603,8 +621,15 @@ namespace EDCodex.Panel
         /// </summary>
         private bool TryUpdateEntryStatus(CodexEntryView entry, CodexEntryStatus newStatus)
         {
-            if (entry is null || entry.Status == newStatus)
+            if (entry is null)
             {
+                _logger.Debug("TryUpdateEntryStatus: entry is null.");
+                return false;
+            }
+
+            if (entry.Status == newStatus)
+            {
+                _logger.Debug($"TryUpdateEntryStatus: no change for {entry.Description}");
                 return false;
             }
 
