@@ -556,7 +556,42 @@ namespace EDCodex.Panel
 
         private void dataGridView_codexEntries_KeyDown(object sender, KeyEventArgs e)
         {
+            if (dataGridView_codexEntries.CurrentCell is null)
+            {
+                return;
+            }
 
-        }
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    _logger.Debug("Hotkey A triggered.");
+
+                    if (dataGridView_codexEntries.CurrentCell?.RowIndex is int idx && idx >= 0)
+                    {
+                        if (dataGridView_codexEntries.Rows[idx].DataBoundItem is CodexEntryView entry)
+                        {
+                            if (entry.Status != CodexEntryStatus.Absent)
+                            {
+                                var oldValue = entry.Status;
+                                entry.Status = CodexEntryStatus.Absent;
+
+                                dataGridView_codexEntries.InvalidateRow(idx);
+
+                                _logger.Debug($"{entry.Description}: {oldValue} —> {entry.Status}");
+
+                                DbAccessor.SaveCodex();
+                                _logger.Debug("Codex saved.");
+                                BeginInvoke(new MethodInvoker(() => ApplyCombinedFilter()));
+                            }
+                        }
+                    }
+
+                    e.Handled = true;
+                    break;
+
+                default:
+                    break;
+            }            
+        }        
     }
 }
