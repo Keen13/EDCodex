@@ -554,49 +554,21 @@ namespace EDCodex.Panel
             }
         }
 
-        private void dataGridView_codexEntries_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (dataGridView_codexEntries.CurrentCell is null)
-            {
-                return;
-            }
-
-            switch (e.KeyCode)
-            {
-                case Keys.A:
-                    _logger.Debug("Hotkey A triggered.");
-
-                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.Absent);
-                    break;
-                case Keys.F:
-                    _logger.Debug("Hotkey F triggered.");
-                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.Found);
-                    break;
-
-                case Keys.N:
-                    _logger.Debug("Hotkey N triggered.");
-                    SetSelectedEntryStatusFromHotkey(e, CodexEntryStatus.NotFound);
-                    break;
-
-                default:
-                    break;
-            }            
-        }
-
-        private void SetSelectedEntryStatusFromHotkey(KeyEventArgs e, CodexEntryStatus newStatus)
+        private void SetSelectedEntryStatusFromHotkey(CodexEntryStatus newStatus)
         {
             var grid = dataGridView_codexEntries;
             var currentCell = grid.CurrentCell;
 
-            if (currentCell == null || currentCell.RowIndex < 0)
+            if (currentCell is null)
             {
                 return;
             }
 
             var idx = currentCell.RowIndex;
 
-            var entry = grid.Rows[idx].DataBoundItem as CodexEntryView;
-            if (entry == null)
+            //var entry = grid.Rows[idx].DataBoundItem as CodexEntryView;
+            var entry = currentCell.OwningRow?.DataBoundItem as CodexEntryView;
+            if (entry is null)
             {
                 return;
             }
@@ -648,8 +620,37 @@ namespace EDCodex.Panel
                     grid.Rows[newIndex].Cells[0];
                 
             }));
+        }
 
-            e.Handled = true;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            var grid = dataGridView_codexEntries;
+
+            if (grid.CurrentCell is null)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            // Hotkeys by key only (ignores modifiers)
+            switch (keyData & Keys.KeyCode)
+            {
+                case Keys.A:
+                    _logger.Debug("Hotkey A triggered.");
+
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Absent);
+                    return true;
+                case Keys.F:
+                    _logger.Debug("Hotkey F triggered.");
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.Found);
+                    return true;
+
+                case Keys.N:
+                    _logger.Debug("Hotkey N triggered.");
+                    SetSelectedEntryStatusFromHotkey(CodexEntryStatus.NotFound);
+                    return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

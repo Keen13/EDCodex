@@ -139,7 +139,6 @@
             this.dataGridView_codexEntries.RowHeadersWidth = 62;
             this.dataGridView_codexEntries.Size = new System.Drawing.Size(553, 531);
             this.dataGridView_codexEntries.TabIndex = 0;
-            this.dataGridView_codexEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_codexEntries_KeyDown);
             // 
             // panel_topControls
             // 
@@ -253,7 +252,7 @@
             this.listBox_prefixes.Location = new System.Drawing.Point(0, 227);
             this.listBox_prefixes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listBox_prefixes.Name = "listBox_prefixes";
-            this.listBox_prefixes.Size = new System.Drawing.Size(621, 464);
+            this.listBox_prefixes.Size = new System.Drawing.Size(617, 464);
             this.listBox_prefixes.TabIndex = 3;
             this.listBox_prefixes.SelectedIndexChanged += new System.EventHandler(this.listBox_prefixes_SelectedIndexChanged);
             // 
